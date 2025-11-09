@@ -2,11 +2,13 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import bcrypt from "bcrypt"
 import mongoose from "mongoose";
 import cors from "cors";
 import UserModel from "./src/models/Users.js";
 
 const app = express();
+const saltRounds = 10; 
 
 // ✅ Enable JSON parsing first
 app.use(express.json());
@@ -47,9 +49,17 @@ const connectDB = async () => {
 };
 connectDB();
 
-app.post("/login",async (req,res)=>{
-  try{
-    const{username,password} = req.body;
+
+
+
+
+
+
+
+app.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
     if (!username || !password) {
       return res.status(400).json({ error: "Username and password are required" });
     }
@@ -59,19 +69,21 @@ app.post("/login",async (req,res)=>{
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    if (user.password === password) {
-      return res.status(200).json({ message: "Login successful", user });
-    } else {
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
       return res.status(401).json({ error: "Invalid password" });
     }
 
-  }
-  catch(e){
-    console.error(e)
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(200).json({ message: "Login successful", user });
 
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-})
+});
+
 
 app.post("/register", async (req, res) => {
   try {
@@ -81,27 +93,40 @@ app.post("/register", async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+    // Check for existing email
     const existingEmail = await UserModel.findOne({ email });
     if (existingEmail) {
       return res.status(400).json({ error: "Email already exists" });
     }
 
+    // Check for existing username
     const existingUserName = await UserModel.findOne({ username });
     if (existingUserName) {
       return res.status(400).json({ error: "Username already exists" });
     }
 
-    const newUser = await UserModel.create({ username, email, password });
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Create new user
+    const newUser = await UserModel.create({
+      username,
+      email,
+      password: hashedPassword,
+    });
 
     res.status(201).json({
       message: "User registered successfully",
       user: newUser,
     });
+
   } catch (e) {
     console.error("❌ Registration error:", e);
     res.status(500).json({ error: e.message });
   }
 });
+
+
 
 // ✅ Start server
 app.listen(3000, () => {

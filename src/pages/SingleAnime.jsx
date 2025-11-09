@@ -1,3 +1,3 @@
 export default function SingleAnime(){
-    return(<p>This is the Single Anime</p>)
+    return(<p className="main-content">This is the Single Anime</p>)
 }

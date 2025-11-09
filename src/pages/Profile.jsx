@@ -13,14 +13,14 @@ export default function Profile() {
 
   if (!loggedUser) {
     return (
-      <div style={{ color: "white", textAlign: "center" }}>
+      <div className="main-content" style={{ color: "white", textAlign: "center" }}>
         <h2>Please log in to view your profile.</h2>
       </div>
     );
   }
 
   return (
-    <div style={{ color: "white", textAlign: "center" }}>
+    <div className="main-content" style={{ color: "white", textAlign: "center" }}>
       <h2>Welcome, {loggedUser.username}!</h2>
       <p>Email: {loggedUser.email}</p>
       <button onClick={handleLogout}>Logout</button>

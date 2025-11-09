@@ -21,7 +21,7 @@ export default function AnimePage() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="anime-results-page">
+    <div className="anime-results-page main-content">
       <h2>Results for “{decodeURIComponent(anime)}”</h2>
       <div className="anime-grid">
         {results.map((item) => (
