@@ -55,7 +55,7 @@ export default function Discover() {
                 </div>
               ))
             ) : (
-              <p style={{ color: "white" }}>No anime found</p>
+              <p style={{ color: "white" }}>No anime found.</p>
             )}
           </div>
         </div>
