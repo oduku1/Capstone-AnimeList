@@ -3,35 +3,35 @@ import { searchAnime } from "../api_fetching/jikan";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-export default function Search() {
+export default function SearchBar() {
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-  const [fullResults,setFullResults] = useState(null)
+
   const navigate = useNavigate();
   const containerRef = useRef(null);
 
-  const {results,setResults, queriedAnime} = useContext(AuthContext)
+  const { results, setResults, queriedAnime, setFullResults } = useContext(AuthContext);
 
+  // Fetch suggestions on typing with debounce (for dropdown only)
   useEffect(() => {
     if (!query.trim()) {
       setResults([]);
       setShowDropdown(false);
       return;
     }
-  
+
     const delay = setTimeout(async () => {
-      const data = await searchAnime(query);
+      const data = await searchAnime(query.trim());
       const sliced = data.slice(0, 6);
-      setResults(sliced);
-      setFullResults(data)
-      queriedAnime.current = sliced; 
+
+      setResults(sliced);  // update dropdown only
       setShowDropdown(true);
     }, 400);
-  
+
     return () => clearTimeout(delay);
   }, [query]);
-  
-  // Close dropdown when clicking outside
+
+  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e) {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
@@ -42,21 +42,32 @@ export default function Search() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  function handleSelect(animeTitle) {
+  // Only update fullResults and navigate on Enter
+  async function handleKeyDown(e) {
+    if (e.key === "Enter" && query.trim()) {
+      e.preventDefault();
+
+      const data = await searchAnime(query.trim());
+
+      setFullResults(data);          // update fullResults on enter
+      queriedAnime.current = data;
+
+      navigate(`/discover/search/${encodeURIComponent(query.trim())}`);
+
+      setShowDropdown(false);
+      setQuery("");  // optional: clear input after search commit
+    }
+  }
+
+  // When user clicks dropdown item, navigate and update fullResults
+  async function handleSelect(animeTitle) {
+    const data = await searchAnime(animeTitle);
+    setFullResults(data);
+    queriedAnime.current = data;
+
     navigate(`/anime/${encodeURIComponent(animeTitle)}`);
     setShowDropdown(false);
     setQuery("");
-  }
-
-  // ✅ NEW: handle pressing Enter
-  function handleKeyDown(e) {
-    if (e.key === "Enter" && query.trim()) {
-      e.preventDefault();
-      queriedAnime.current = fullResults
-      navigate(`/discover/${encodeURIComponent(query.trim())}`);
-      setShowDropdown(false);
-      setQuery("");
-    }
   }
 
   return (
@@ -71,7 +82,8 @@ export default function Search() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => query && setShowDropdown(true)}
-        onKeyDown={handleKeyDown} 
+        onKeyDown={handleKeyDown}
+        autoComplete="off"
       />
 
       {showDropdown && results.length > 0 && (

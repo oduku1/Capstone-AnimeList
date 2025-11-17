@@ -4,7 +4,7 @@ const animeSchema = new mongoose.Schema({
     title:{type:String,required:true},
     genre:[String],
     rating: {type:Number,min:0,max:10},
-    episodes: Number,
+    episodes: {type:Number,default:null},
     status:{
         type:String,
         enum: ["Plan to Watch","Watching","Completed","Dropped"],

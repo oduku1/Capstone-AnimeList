@@ -1,4 +1,4 @@
-/* === RESET & BASE STYLES === */
+/* === RESET === */
 * {
   margin: 0;
   padding: 0;
@@ -10,13 +10,11 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body::-webkit-scrollbar-thumb{
-  background:#ff4081;;
-
-
+body::-webkit-scrollbar-thumb {
+  background: #ff4081;
 }
 
-/* Common layout */
+/* === GLOBAL LAYOUT === */
 .main-content {
   padding-top: 50px;
   position: relative;
@@ -32,25 +30,68 @@ body::-webkit-scrollbar-thumb{
   align-items: center;
   padding: 15px 30px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  z-index: 1000; 
+  z-index: 1000;
 }
 
 .nav-left a {
   text-decoration: none;
   margin-right: 20px;
   transition: color 0.3s ease;
+  color: white;
 }
 
-
 .nav-left a:hover {
-  text-decoration: underline;
-  color: #ff6f61;
+  text-decoration: none;
+  background-color: #ff6f61;
+  border-radius: 2px;
+  width: 50px;
+  height: 1000px;
 }
 
 .nav-right {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+/* === LOGIN BUTTON IN NAV === */
+.login-btn {
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  box-shadow: none;
+  outline-offset: 2px;
+}
+
+/* Light mode styles */
+body.light .login-btn {
+  background-color: #ff6f61; /* primary pink */
+  color: white;
+}
+
+body.light .login-btn:hover,
+body.light .login-btn:focus {
+  background-color: #ff856f;
+  outline: 2px solid #ff856f;
+  box-shadow: 0 0 8px rgba(255, 111, 97, 0.6);
+}
+
+/* Dark mode styles */
+body.dark .login-btn {
+  background-color: #ff4081; /* brighter pink */
+  color: white;
+}
+
+body.dark .login-btn:hover,
+body.dark .login-btn:focus {
+  background-color: #ff6f91;
+  outline: 2px solid #ff6f91;
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
 }
 
 /* === SEARCH INPUT === */
@@ -66,7 +107,7 @@ body::-webkit-scrollbar-thumb{
   outline: none;
 }
 
-/* === DROPDOWN === */
+/* === SEARCH DROPDOWN === */
 .search-dropdown {
   position: absolute;
   top: 110%;
@@ -75,7 +116,6 @@ body::-webkit-scrollbar-thumb{
   border-radius: 8px;
   list-style: none;
   padding: 8px 0;
-  margin: 0;
   z-index: 1000;
   max-height: 300px;
   overflow-y: auto;
@@ -133,44 +173,35 @@ body::-webkit-scrollbar-thumb{
 
 .auth-form a {
   text-decoration: none;
-  font-weight: bolder;
+  font-weight: bold;
   color: #ff6f61;
   transition: color 0.4s ease;
 }
 
 .auth-form a:hover {
   color: #ff856f;
-  cursor: pointer;
 }
 
 /* === LIGHT MODE === */
 body.light {
-  background-color: #fff;
+  background: #e6e6e6; /* softened from pure white */
   color: #222;
 }
 
 body.light .nav {
-  background-color: #f0f2f5;
+  background: #f0f2f5;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-body.light .nav-left a {
-  color: #222;
-}
-
 body.light .search-input {
-  background-color: #f1f1f1;
+  background: #f1f1f1;
   color: #222;
   border: 1px solid #ccc;
 }
 
 body.light .search-dropdown {
-  background-color: #fff;
+  background: #fff;
   border: 1px solid #ccc;
-}
-
-body.light .dropdown-item {
-  color: #222;
 }
 
 body.light .auth-form {
@@ -179,51 +210,75 @@ body.light .auth-form {
   border: 2px solid #ccc;
 }
 
-body.light .login-btn {
-  background-color: #ff6f61;
+/* Discover page text colors in light mode */
+body.light .discover-title,
+body.light .loading-text,
+body.light .page-number {
+  color: #222;
+}
+
+body.light .anime-card {
+  background: #fff; /* lighter background */
+  color: #222;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+body.light .anime-title-link {
+  color: #222;
+}
+
+body.light .anime-title-link:hover,
+body.light .anime-title-link:focus {
+  color: #ff4081;
+}
+
+body.light .pagination-container,
+body.light .page-btn {
+  color: #222;
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+body.light .page-btn:hover:not(.disabled),
+body.light .page-btn:focus:not(.disabled) {
+  background: #ff4081;
   color: white;
-  border: none;
-  width: 60px ;
-  height: 25px;
-  border-radius: 5px;
-  transform: background-color 0.3s ease;
+  border-color: #ff4081;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
 }
 
-body.light .login-btn:hover{
- background-color:  #ff856f;
- cursor: pointer;
-
+body.light .add-button {
+  background: rgba(0, 0, 0, 0.05);
+  color: #ff4081;
+  box-shadow: none;
 }
 
+body.light .add-button:hover,
+body.light .add-button:focus {
+  background: #ff4081;
+  color: white;
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
+}
 
 /* === DARK MODE === */
 body.dark {
-  background-color: #1a1a1a;
+  background: #1a1a1a;
   color: #f5f5f5;
 }
 
 body.dark .nav {
-  background-color: #252525;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-body.dark .nav-left a {
-  color: white;
+  background: #252525;
 }
 
 body.dark .search-input {
-  background-color: #1e1e1e;
+  background: #1e1e1e;
   color: white;
   border: 1px solid #444;
 }
 
 body.dark .search-dropdown {
-  background-color: #2a2a2a;
+  background: #2a2a2a;
   border: 1px solid #444;
-}
-
-body.dark .dropdown-item {
-  color: white;
 }
 
 body.dark .auth-form {
@@ -232,23 +287,58 @@ body.dark .auth-form {
   border: 2px solid #333;
 }
 
-body.dark .login-btn {
-  background-color: #ff6f61;
+/* Discover page text colors in dark mode */
+body.dark .discover-title,
+body.dark .loading-text,
+body.dark .page-number {
+  color: #f5f5f5;
+}
+
+body.dark .anime-card {
+  background: #1c1c1c;
+  color: #f5f5f5;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+body.dark .anime-title-link {
+  color: #fff;
+}
+
+body.dark .anime-title-link:hover,
+body.dark .anime-title-link:focus {
+  color: #ff4081;
+}
+
+body.dark .pagination-container,
+body.dark .page-btn {
+  color: #f5f5f5;
+  background: #333;
+  border-color: #666;
+}
+
+body.dark .page-btn:hover:not(.disabled),
+body.dark .page-btn:focus:not(.disabled) {
+  background: #ff4081;
   color: white;
-  border: none;
-  width: 60px ;
-  height: 25px;
-  border-radius: 5px;
-  transform: background-color 0.3s ease;
+  border-color: #ff4081;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
 }
 
-body.dark .login-btn:hover{
-  background-color:  #ff856f;
-  cursor: pointer;
-  
+body.dark .add-button {
+  background: rgba(255, 255, 255, 0.85);
+  color: #ff4081;
+  box-shadow: 0 0 5px rgba(255, 64, 129, 0.5);
 }
 
-.home-main{
+body.dark .add-button:hover,
+body.dark .add-button:focus {
+  background: #ff4081;
+  color: white;
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
+}
+
+/* === HOME MAIN === */
+.home-main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -256,137 +346,233 @@ body.dark .login-btn:hover{
   gap: 5px;
 }
 
-.add-button{
-  background-color:  #ff6f61;;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  border: none;
-  transition: background-color 0.3s ease-in-out;
-}
-
-
-.add-button:hover{
-  background-color:  #f99389;
-  cursor: pointer;
-}
-
-
-.image-container{
-  position: relative;
-  display: inline-block;
-}
-
-.image-container img{
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.image-container button{
-  position: absolute;
-  top: 90%;
-  left:90%;
-  transform: translate(-50%,-50%);
-
-}
-
-/*=== DISCOVER PAGE ===*/
-
-/* Wrapper prevents overflow */
-.anime-grid-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-/* Horizontal scroll (CENTERED + NOT FULL WIDTH) */
-.anime-grid {
+/* === POPUP === */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 15px;
-
-  /* FIX: keep not full width, but center it */
-  width: 50%;
-  margin: 0 auto;
-
-  scrollbar-width: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.anime-grid::-webkit-scrollbar {
-  display: none;
-}
-
-/* Card size */
-.anime-card {
-  flex: 0 0 auto;
-  width: 150px;
-  scroll-snap-align: start;
+.popup-box {
+  padding: 1rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
   text-align: center;
 }
 
-/* ===================================== */
-/* FADE EDGES — DARK MODE */
-/* ===================================== */
-body.dark .anime-grid-wrapper::before,
-body.dark .anime-grid-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 40px;
+body.light .popup-box {
+  background: #fff;
+  color: black;
+}
+
+body.dark .popup-box {
+  background: #1a1a1a;
+  color: white;
+}
+
+.popup-image {
+  width: 200px;
+  border-radius: 4px;
+}
+
+.popup-close {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #ff6f61;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup-close:hover {
+  background: #ff856f;
+}
+
+/* === DISCOVER & PAGINATION === */
+
+.discover-title {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 600;
+  user-select: none;
+}
+
+.loading-text {
+  text-align: center;
+  color: #ccc;
+  margin-top: 20px;
+  font-size: 1.1rem;
+  user-select: none;
+}
+
+.anime-grid-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.anime-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.anime-card {
+  background: #1c1c1c;
+  padding: 12px;
+  border-radius: 12px;
+  width: 170px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: white;
+  position: relative;
+  cursor: default;
+}
+
+.anime-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.image-container img {
+  width: 100%;
   height: 100%;
-  z-index: 5;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+.add-button {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  color: #ff4081;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  box-shadow: 0 0 5px rgba(255, 64, 129, 0.5);
+}
+
+.add-button:hover,
+.add-button:focus {
+  background: #ff4081;
+  color: white;
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
+}
+
+.anime-title-link {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.anime-title-link:hover,
+.anime-title-link:focus {
+  color: #ff4081;
+  outline: none;
+}
+
+/* === PAGINATION CONTAINER === */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  gap: 15px;
+}
+
+/* === PAGINATION BUTTONS === */
+.page-btn {
+  padding: 10px 18px;
+  background: #333;
+  border: 1px solid #666;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+.page-btn:hover:not(.disabled),
+.page-btn:focus:not(.disabled) {
+  background: #ff4081;
+  outline: none;
+  border-color: #ff4081;
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
+}
+
+.page-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
   pointer-events: none;
 }
 
-body.dark .anime-grid-wrapper::before {
-  left: 0;
-  background: linear-gradient(
-    to right,
-    rgba(18,18,18,1),
-    rgba(18,18,18,0)
-  );
+/* === PAGE NUMBER DISPLAY === */
+.page-number {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  user-select: none;
 }
 
-body.dark .anime-grid-wrapper::after {
-  right: 0;
-  background: linear-gradient(
-    to left,
-    rgba(18,18,18,1),
-    rgba(18,18,18,0)
-  );
-}
-
-/* ===================================== */
-/* FADE EDGES — LIGHT MODE */
-/* ===================================== */
-body.light .anime-grid-wrapper::before,
-body.light .anime-grid-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 40px;
-  height: 100%;
-  z-index: 5;
-  pointer-events: none;
-}
-
-body.light .anime-grid-wrapper::before {
-  left: 0;
-  background: linear-gradient(
-    to right,
-    rgba(255,255,255,1),
-    rgba(255,255,255,0)
-  );
-}
-
-body.light .anime-grid-wrapper::after {
-  right: 0;
-  background: linear-gradient(
-    to left,
-    rgba(255,255,255,1),
-    rgba(255,255,255,0)
-  );
+/* === RESPONSIVE === */
+@media (max-width: 500px) {
+  .anime-card {
+    width: 140px;
+  }
+  .image-container {
+    height: 190px;
+  }
+  .add-button {
+    padding: 4px 8px;
+    font-size: 18px;
+  }
+  .page-btn {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+  .discover-title {
+    font-size: 22px;
+  }
+  .nav {
+    width: 100%;
+    padding: 10px 15px; 
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }

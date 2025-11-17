@@ -1,10 +1,9 @@
 // services/animeAPI.js
 
 // Fetch top anime
-export default async function getData() {
+export default async function getData(page=1) {
     try {
-      const response = await fetch("https://api.jikan.moe/v4/seasons/now");
-  
+      const response = await fetch(`https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=25&page=${page}`)
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

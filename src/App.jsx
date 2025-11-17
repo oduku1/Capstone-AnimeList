@@ -12,6 +12,8 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 import Profile from "./pages/Profile.jsx";
 import SingleAnime from "./pages/SingleAnime.jsx";
 import { searchAnime } from "./api_fetching/jikan.js";
+import Search from "./components/SearchBar.jsx";
+import SearchPage from "./pages/Search.jsx";
 
 function App() {
   const {  setAnime,  setLoading } = useContext(AuthContext);
@@ -35,17 +37,27 @@ function App() {
     <>
       <NavBar onSearch={handleSearch} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/discover" element={<Discover />} /> 
-        <Route path="/discover/:anime" element={<Discover/>} />
-       
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profile/:user" element={<Profile />} />
-        <Route path="/anime/:anime" element={<SingleAnime />} />
-      </Routes>
+  <Route path="/" element={<Home />} />
+
+  {/* Discover */}
+  <Route path="/discover" element={<Discover />} />
+
+  {/* SEARCH RESULTS — MUST BE ABOVE /anime/:anime */}
+  <Route path="/discover/search/:anime" element={<SearchPage/>} />
+  
+
+  {/* SINGLE ANIME */}
+  <Route path="/anime/:anime" element={<SingleAnime />} />
+
+  {/* Auth */}
+  <Route path="/login" element={<LoginPage />} />
+  <Route path="/register" element={<RegisterPage />} />
+
+  {/* Profile */}
+  <Route path="/profile/:user" element={<Profile />} />
+</Routes>
     </>
-  );
+  );  
 }
 
 export default App;
