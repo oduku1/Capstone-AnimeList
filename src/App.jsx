@@ -9,7 +9,7 @@ import Discover from "./pages/Discover.jsx";
 import AnimePage from "./pages/AnimePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-import Profile from "./pages/Profile.jsx";
+import Profile from "./pages/List.jsx";
 import SingleAnime from "./pages/SingleAnime.jsx";
 import { searchAnime } from "./api_fetching/jikan.js";
 import Search from "./components/SearchBar.jsx";

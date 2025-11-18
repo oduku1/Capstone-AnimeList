@@ -1,0 +1,61 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 40px 20px;
+  }
+  
+  /* TITLE — anime gradient */
+  .home-title {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 5px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #e22d8efb, #e83f7ae3, #8a0347);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* SUBTITLE — fade-in */
+  .home-subtitle {
+    text-align: center;
+    font-size: 12px;
+    font-weight: lighter;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+    animation-delay: 0.4s;
+    margin-bottom: 20px;
+  }
+  
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  
+  /* IMAGE WRAPPER — subtle glow + hover */
+  .home-hero-wrapper {
+    padding: 10px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: 0.3s ease;
+    width: 50%;
+  }
+  
+  .home-hero-wrapper:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.18);
+    width: 55%;
+  }
+  
+  /* IMAGE */
+  .home-hero-image {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+  }

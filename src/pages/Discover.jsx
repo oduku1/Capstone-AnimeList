@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Popup from "../components/Popup";
+import "../css/Discover.css"
 
 export default function Discover() {
   const {
@@ -33,11 +34,11 @@ export default function Discover() {
   if (loading) return <p className="loading-text">Loading top anime...</p>;
 
   return (
-    <>
+    <div className="main-content">
       <h3 className="discover-title">Top Trending Anime</h3>
 
       <div className="anime-grid-wrapper">
-        <div className="anime-grid main-content">
+        <div className="anime-grid">
           {anime?.length > 0 ? (
             anime.map((a) => (
               <div key={a.mal_id} className="anime-card">
@@ -97,6 +98,6 @@ export default function Discover() {
           }}
         />
       )}
-    </>
+    </div>
   );
 }

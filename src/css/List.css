@@ -1,0 +1,138 @@
+/* === PROFILE PAGE LAYOUT === */
+.profile-page {
+    color: white;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  
+  /* === ANIME LIST === */
+  .list-card {
+    background: #151515;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 0 12px rgba(97, 97, 97, 0.3);
+    transition: transform 0.15s ease-in-out;
+  }
+  
+  body.light .list-card{
+    background: #ffffff;
+    color:rgb(14, 13, 13);
+    box-shadow: 0 0 12px rgba(21, 21, 21, 0.3);
+  
+  
+  }
+  
+  .list-card:hover {
+    transform: scale(1.02);
+  }
+  
+  /* === IMAGE === */
+  .list-card img {
+    width: 120px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  /* === DETAILS === */
+  .list-details {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .list-details h4 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+  }
+  
+  .list-status-text {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+  
+  .list-update-btn{
+    background-color: #6d6df5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    cursor: pointer;
+      height: 30px;
+      transition: all 0.2s ease;
+  
+  }
+  
+  .list-update-btn:hover {
+    background-color: #5959e6;
+    transform: translateY(-2px);
+  }
+  
+  .list-update-btn:active {
+    transform: scale(0.97);
+  }
+  
+  .list-update-btn {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  
+  
+  .list-delete-btn{
+    background-color: #f0552e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    cursor: pointer;
+      height: 30px;
+      transition: all 0.2s ease;
+  
+  }
+  
+  .list-delete-btn:hover {
+    background-color: #ed3c10;
+    transform: translateY(-2px);
+  }
+  
+  .list-delete-btn:active {
+    transform: scale(0.97);
+  }
+  
+  .list-delete-btn {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  
+  
+  
+  
+  
+  
+  
+  /* === RESPONSIVE === */
+  @media (max-width: 600px) {
+    .list-card {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .list-card img {
+      width: 150px;
+      height: 200px;
+    }
+  
+    .list-details {
+      text-align: center;
+    }
+  }
+  

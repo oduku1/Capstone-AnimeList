@@ -1,22 +1,19 @@
-import popularAnime from "/src/assets/Anime_pop.webp"
+import popularAnime from "/src/assets/Anime_pop.webp";
+import "../css/Home.css";
 
-export default function Home(){
-    return (<div className="main-content">
-     
-     <div className="home-main">
+export default function Home() {
+  return (
+    <div className="main-content">
+      <div className="home-container">
+        
+        <h2 className="home-title">AniTrack-r</h2>
+        <p className="home-subtitle">List All Your Favorite Anime</p>
 
+        <div className="home-hero-wrapper">
+          <img src={popularAnime} className="home-hero-image" />
+        </div>
 
-    
-     <h2 style={{textAlign:"center", fontSize:"30px",marginBottom:"5px"}}>Anime List</h2>
-     <p style={{textAlign:"center",fontSize:"10px",fontWeight:"lighter",fontStyle:"italic"}}>List All Your Favorite Anime</p>
-     <img src={popularAnime} style={{width:"50%",borderRadius:"10px"}}></img>
-     </div>
-    
-    
-    
+      </div>
     </div>
-    
-    
-    
-   )
+  );
 }
