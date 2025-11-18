@@ -5,13 +5,12 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
 
 export default function NavBar({ onSearch }) {
-  const { loggedIn, setLoggedIn, setUser, user} = useContext(AuthContext);
+  const { loggedIn, logout,user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setLoggedIn(false);
-    setUser(null);
-    navigate("/");
+    logout();        // <-- THIS removes token + resets user
+    navigate("/");   // optional redirect
   };
 
   return (
@@ -19,7 +18,7 @@ export default function NavBar({ onSearch }) {
       <div className="nav-left">
         <Link to="/">Home</Link>
         <Link to="/discover">Discover</Link>
-        {loggedIn && <Link to="/profile">{user?.username || "Profile"}</Link>}
+        {loggedIn && <Link to={`/list/${user.username}`}>My List</Link>}
       </div>
 
       <div className="nav-right">

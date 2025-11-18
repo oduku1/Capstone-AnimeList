@@ -1,17 +1,17 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+import jwt from "jsonwebtoken"
 import express from "express";
 import bcrypt from "bcrypt"
 import mongoose from "mongoose";
 import cors from "cors";
-import UserModel from "./src/models/Users.js";
-import AnimeModel from "./src/models/Anime.js";
-import { CommentModel } from "./src/models/Comments.js";
+import AnimeModel from "./models/Anime.js";
+import UserModel from "./models/Users.js";
 
 const app = express();
 const saltRounds = 10; 
-
+const JWT_SECRET = process.env.JWT_SECRET
 // ✅ Enable JSON parsing first
 app.use(express.json());
 
@@ -57,7 +57,6 @@ connectDB();
 
 
 
-
 app.post("/api/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -78,7 +77,17 @@ app.post("/api/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid password" });
     }
 
-    return res.status(200).json({ message: "Login successful", user });
+    const token = jwt.sign(
+      { id: user._id, username: user.username },
+      JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    return res.status(200).json({
+      message: "Login successful",
+      token,
+      user
+    });
 
   } catch (e) {
     console.error(e);
@@ -130,22 +139,31 @@ app.post("/api/register", async (req, res) => {
 
 
 
-app.post("/api/users/:userId/anime", async (req, res) => {
+app.post("/api/users/:username/anime", async (req, res) => {
   try {
-    const { userId } = req.params;
-    const { title, episodes, image, status, rating, episodesWatched } = req.body;
+    const { username } = req.params;
+    const { title, episodes, image, status, rating, episodesWatched,genres } = req.body;
 
+    const user = await UserModel.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Save anime with real MongoDB user ID
     const newAnime = new AnimeModel({
       title,
-      episodes,
+      genres,
       image,
+      episodesWatched,
       status,
       rating,
-      episodesWatched,
-      userId
+      episodes,
+      userId: user._id
     });
 
     await newAnime.save();
+
     res.status(201).json(newAnime);
   } catch (e) {
     console.error(e);
@@ -171,6 +189,24 @@ app.put("/api/anime/:animeId", async (req, res) => {
   }
 });
 
+app.get("/api/profile/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await UserModel.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const userAnime = await AnimeModel.find({ userId: user._id });
+
+
+    res.status(200).json({ userAnime });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 
 // ✅ Start server

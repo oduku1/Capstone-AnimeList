@@ -1,7 +1,7 @@
 import { useContext, useRef, useState, useEffect } from "react";
-import lightsunpic from "/src/assets/lightSun.svg"
-import moon  from "/src/assets/moon.svg"
 import { AuthContext } from "../context/AuthContext";
+import moon from"../assets/moon.svg"
+import sun from"../assets/sun.svg"
 
 export default function DarkModeToggle() {
   // clearer naming for state setter
@@ -59,7 +59,7 @@ export default function DarkModeToggle() {
         aria-expanded={dropdown}
       >
         {dark === "dark" ? 
-        <img src={lightsunpic} alt="Sun icon" style={{ width: 30, height: 30 }}  /> :<img src={moon} alt="Sun icon" style={{ width: 30, height: 30 }}/>}
+        <img src={sun} alt="Sun icon" style={{ width: 30, height: 30 }}  /> :<img src={moon} alt="Sun icon" style={{ width: 30, height: 30 }}/>}
       </button>
 
       {dropdown && (

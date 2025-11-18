@@ -7,6 +7,7 @@ export default function SearchPage() {
   const {
     fullResults,
     setSelectedAnime,
+    selectedAnime,
     openPopup,
     setOpenPopup,
     loading,
@@ -45,7 +46,7 @@ export default function SearchPage() {
                 <Link
                   to={`/anime/${encodeURIComponent(res.title)}`}
                   className="anime-title-link"
-                  onClick={()=>setSelectedAnime(a)}
+                  onClick={()=>setSelectedAnime(res)}
                 >
                   {res.title}
                 </Link>
@@ -59,7 +60,7 @@ export default function SearchPage() {
 
       {openPopup && (
         <Popup
-          selectedAnime={setSelectedAnime}
+          selectedAnime={selectedAnime}
           onClose={() => setOpenPopup(false)}
         />
       )}

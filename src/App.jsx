@@ -54,7 +54,7 @@ function App() {
   <Route path="/register" element={<RegisterPage />} />
 
   {/* Profile */}
-  <Route path="/profile/:user" element={<Profile />} />
+  <Route path="/list/:username" element={<Profile />} />
 </Routes>
     </>
   );  

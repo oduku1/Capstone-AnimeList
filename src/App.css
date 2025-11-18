@@ -40,6 +40,10 @@ body::-webkit-scrollbar-thumb {
   color: white;
 }
 
+body.light .nav-left a {
+  color: black;
+}
+
 .nav-left a:hover {
   text-decoration: none;
   background-color: #ff6f61;
@@ -185,12 +189,13 @@ body.dark .login-btn:focus {
 /* === LIGHT MODE === */
 body.light {
   background: #e6e6e6; /* softened from pure white */
-  color: #222;
+  color: black
 }
 
 body.light .nav {
   background: #f0f2f5;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ 
 }
 
 body.light .search-input {
@@ -247,10 +252,13 @@ body.light .page-btn:focus:not(.disabled) {
   box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
 }
 
+
+
 body.light .add-button {
   background: rgba(0, 0, 0, 0.05);
   color: #ff4081;
   box-shadow: none;
+
 }
 
 body.light .add-button:hover,
@@ -467,7 +475,7 @@ body.dark .popup-box {
   bottom: 8px;
   right: 8px;
   background: rgba(255, 255, 255, 0.85);
-  border: none;
+  border-color: white;
   padding: 6px 10px;
   border-radius: 50%;
   font-size: 20px;

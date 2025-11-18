@@ -10,7 +10,7 @@ export default function SearchBar() {
   const navigate = useNavigate();
   const containerRef = useRef(null);
 
-  const { results, setResults, queriedAnime, setFullResults } = useContext(AuthContext);
+  const { results, setResults, queriedAnime, setFullResults, setSelectedAnime } = useContext(AuthContext);
 
   // Fetch suggestions on typing with debounce (for dropdown only)
   useEffect(() => {
@@ -21,15 +21,21 @@ export default function SearchBar() {
     }
 
     const delay = setTimeout(async () => {
-      const data = await searchAnime(query.trim());
-      const sliced = data.slice(0, 6);
+      try {
+        const data = await searchAnime(query.trim());
+        const sliced = data.slice(0, 6);
 
-      setResults(sliced);  // update dropdown only
-      setShowDropdown(true);
+        setResults(sliced);
+        setShowDropdown(true);
+      } catch (error) {
+        console.error("Failed to fetch anime:", error);
+        setResults([]);
+        setShowDropdown(false);
+      }
     }, 400);
 
     return () => clearTimeout(delay);
-  }, [query]);
+  }, [query, setResults]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -47,25 +53,29 @@ export default function SearchBar() {
     if (e.key === "Enter" && query.trim()) {
       e.preventDefault();
 
-      const data = await searchAnime(query.trim());
+      try {
+        const data = await searchAnime(query.trim());
 
-      setFullResults(data);          // update fullResults on enter
-      queriedAnime.current = data;
+        setFullResults(data);
+        queriedAnime.current = data;
 
-      navigate(`/discover/search/${encodeURIComponent(query.trim())}`);
+        navigate(`/discover/search/${encodeURIComponent(query.trim())}`);
 
-      setShowDropdown(false);
-      setQuery("");  // optional: clear input after search commit
+        setShowDropdown(false);
+        setQuery("");
+      } catch (error) {
+        console.error("Failed to fetch anime:", error);
+      }
     }
   }
 
   // When user clicks dropdown item, navigate and update fullResults
-  async function handleSelect(animeTitle) {
-    const data = await searchAnime(animeTitle);
-    setFullResults(data);
-    queriedAnime.current = data;
+  function handleSelect(anime) {
+    setSelectedAnime(anime);
+    setFullResults([anime]);
+    queriedAnime.current = [anime];
 
-    navigate(`/anime/${encodeURIComponent(animeTitle)}`);
+    navigate(`/anime/${encodeURIComponent(anime.title)}`);
     setShowDropdown(false);
     setQuery("");
   }
@@ -87,12 +97,14 @@ export default function SearchBar() {
       />
 
       {showDropdown && results.length > 0 && (
-        <ul className="search-dropdown">
+        <ul className="search-dropdown" role="listbox">
           {results.map((anime) => (
             <li
               key={anime.mal_id}
-              onClick={() => handleSelect(anime.title)}
+              onClick={() => handleSelect(anime)}
               className="dropdown-item"
+              role="option"
+              tabIndex={0}
             >
               <img
                 src={anime.images?.jpg?.image_url}
