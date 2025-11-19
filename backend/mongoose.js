@@ -153,7 +153,8 @@ app.post("/api/users/:username/anime", async (req, res) => {
       dateAired,
       trailer,
       mal_score,
-      anime_duration
+      anime_duration,
+      mal_id
     } = req.body;
 
     // 1. Find user first
@@ -200,6 +201,7 @@ app.post("/api/users/:username/anime", async (req, res) => {
       mal_score,
       anime_duration, 
       userId: user._id,
+      mal_id
     });
 
     await newAnime.save();
@@ -211,23 +213,44 @@ app.post("/api/users/:username/anime", async (req, res) => {
   }
 });
 
-app.put("/api/anime/:animeId", async (req, res) => {
-  try {
-    const { animeId } = req.params;
-    const { status, episodesWatched, rating } = req.body;
 
-    const updatedAnime = await AnimeModel.findByIdAndUpdate(
-      animeId,
-      { status, episodesWatched, rating },
-      { new: true }
-    );
+app.patch("/api/users/:username/anime", async (req,res)=>{
+  try{
+    const {
+      mal_id, rating, episodesWatched, status} = req.body
+    const username = req.params
+    const currentUser = await UserModel.findOne({username})
 
-    res.json(updatedAnime);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: "Failed to update anime" });
+    if (!currentUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    //2. check if anime is in user's list
+
+    const currentAnime = await AnimeModel.findOne({userId: currentUser._id, mal_id:mal_id})
+
+    if (!currentAnime) {
+      return res.status(404).json({ error: "Anime not found" });
+    }
+
+    //3. update fields
+
+    if(rating!==undefined){currentAnime.rating = rating}
+    if(episodesWatched!==undefined){currentAnime.episodesWatched = episodesWatched}
+    if(status !== undefined){currentAnime.status = status}
+
+    await currentAnime.save()
+
+    res.json({message: "Anime Updated Successfully",
+      anime:currentAnime
+    })
+
+
   }
-});
+  catch(e){
+    console.error(e)
+    res.status(500).json({error:"server error"})
+  }
+})
 
 app.get("/api/profile/:username", async (req, res) => {
   try {

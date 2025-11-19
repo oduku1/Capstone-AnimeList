@@ -41,7 +41,8 @@ export default function Popup({ selectedAnime, onClose }) {
         mal_score: selectedAnime.score,
         dateAired: new Date((selectedAnime.aired.from)),
         dateAdded: new Date(),
-        anime_duration: selectedAnime.duration
+        anime_duration: selectedAnime.duration,
+        mal_id: selectedAnime.mal_id 
       });
       setSuccess("Added Anime to List! Closing Popup")
       setTimeout(()=>{

@@ -33,6 +33,7 @@ const animeSchema = new mongoose.Schema({
   
     mal_score: Number,
     anime_duration: String, 
+    mal_id: Number,
   
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   });
