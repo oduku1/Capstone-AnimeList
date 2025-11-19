@@ -6,13 +6,11 @@ import NavBar from "./components/NavBar.jsx";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Discover from "./pages/Discover.jsx";
-import AnimePage from "./pages/AnimePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
-import Profile from "./pages/List.jsx";
+import List from "./pages/List.jsx";
 import SingleAnime from "./pages/SingleAnime.jsx";
 import { searchAnime } from "./api_fetching/jikan.js";
-import Search from "./components/SearchBar.jsx";
 import SearchPage from "./pages/Search.jsx";
 
 function App() {
@@ -54,7 +52,7 @@ function App() {
   <Route path="/register" element={<RegisterPage />} />
 
   {/* Profile */}
-  <Route path="/list/:username" element={<Profile />} />
+  <Route path="/list/:username" element={<List />} />
 </Routes>
     </>
   );  
