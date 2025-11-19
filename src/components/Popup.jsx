@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
-import "../css/Popup.css"
 
 
 export default function Popup({ selectedAnime, onClose }) {
@@ -36,7 +35,8 @@ export default function Popup({ selectedAnime, onClose }) {
         episodesWatched,
         status,
         rating,
-        episodes
+        episodes,
+        dateAdded: new Date(),
       });
       setSuccess("Added Anime to List! Closing Popup")
       setTimeout(()=>{

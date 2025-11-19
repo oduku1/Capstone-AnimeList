@@ -2,23 +2,23 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
-import "../css/List.css"
+import "../css/List.css";
 
 export default function Profile() {
-  const { user, loggedIn,userAnime,setUserAnime } = useContext(AuthContext);
+  const { user, loggedIn, userAnime, setUserAnime } = useContext(AuthContext);
   const [filterGenre, setFilterGenre] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
-  const {username} = useParams()
+  const [sort, setSort] = useState("");
+  const { username } = useParams();
   const navigate = useNavigate();
   const loggedUser = JSON.parse(localStorage.getItem("loggedInUser"));
-
 
   function handleLogout() {
     localStorage.removeItem("loggedInUser");
     navigate("/login");
   }
 
-  const filterKeys = ["Plan to Watch","Watching","Completed","Dropped"]
+  const filterKeys = ["Plan to Watch", "Watching", "Completed", "Dropped"];
 
   const genresKeys = [
     "Action",
@@ -98,74 +98,159 @@ export default function Profile() {
     "Kids",
     "Seinen",
     "Shoujo",
-    "Shounen"
+    "Shounen",
   ];
 
   const filteredAnime = userAnime
-  ?.filter(anime => filterGenre ? anime.genres.includes(filterGenre) : true)
-  .filter(anime => filterStatus ? anime.status === filterStatus : true);
-
+    ?.filter((anime) =>
+      filterGenre ? anime.genres.includes(filterGenre) : true
+    )
+    .filter((anime) => (filterStatus ? anime.status === filterStatus : true));
 
   const getUserAnime = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/profile/${user.username}`);
-      const data  =  response.data
-      return data; 
+      const response = await axios.get(
+        `http://localhost:3000/api/profile/${user.username}`
+      );
+      const data = response.data;
+      return data;
     } catch (e) {
       console.error("Failed to fetch user anime:", e);
     }
   };
+
+  const handleUpdate = async (e) => {
+    e.stopPropagation();
+    try {
+      axios.patch();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getRatingColor = (rating) => {
+    if (rating === null) return "gray";
+
+    const colorRatio = Math.min(Math.max(rating / 10, 0), 1); // will be from (0 to 1)
+    let red, green, blue;
+    if (colorRatio < 0.5) {
+      //between Red and Yellow
+
+      const newRatio = colorRatio / 0.5;
+      red = 255;
+      green = Math.round(255 * newRatio);
+      blue = 0;
+    } else {
+      const newRatio = (colorRatio - 0.5) / 0.5; // 0 to 1
+      red = Math.round(255 * (1 - newRatio));
+      green = Math.round(128 + 127 * (1 - newRatio)); // yellow to green (255→128)
+      blue = 0;
+    }
+    return `rgb(${red},${green},${blue})`;
+  };
+
   useEffect(() => {
     if (!user?.username) return;
-  
+
     const fetchUserAnime = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/profile/${username}`);
+        const response = await axios.get(
+          `http://localhost:3000/api/profile/${username}`
+        );
         setUserAnime(response.data.userAnime || []);
       } catch (e) {
         console.error("Failed to fetch user anime:", e);
       }
     };
-  
+
     fetchUserAnime();
   }, [user?.username, setUserAnime]);
 
- 
-
   if (!loggedIn || !user) {
     return (
-      <div className="main-content" style={{ color: "white", textAlign: "center" }}>
+      <div
+        className="main-content"
+        style={{ color: "white", textAlign: "center" }}
+      >
         <h2>Please log in to view your profile.</h2>
       </div>
     );
   }
 
   return (
-    <div className="main-content" style={{ color: "white", textAlign: "center" }}>
-      <select className="filter-select" onChange={(e)=>setFilterGenre(e.target.value)}>
-        <option value={""}>All Genres</option>
-        {genresKeys.map(genre=><option value={genre}>{genre}</option>)}
-      </select>
-      <select className="filter-select" onChange={(e)=>setFilterStatus(e.target.value)}>
-        <option value={""}>All Statuses</option>
-        {filterKeys.map(option=><option value={option}>{option}</option>)}
-      </select>
-      {filteredAnime.map((anime) => (
-      <div className="list-card" key={anime._id}>
-        <img src={anime.image} alt={anime.title} />
+    <div
+      className="main-content"
+      style={{ color: "white", textAlign: "center" }}>
 
-        <div className="list-details">
-          <h4>{anime.title}</h4>
-          <p>Genres: {anime.genres.join(", ")}</p>
-          <p>Your Rating: {anime.rating}</p>
-          <p className="list-status-text">Status: {anime.status}</p>
+      <div className="query-container">
+
+
+
+
+        <div className="search-container">
+          <input placeholder="Search For Anime"></input>
+          <button>Go</button>
         </div>
 
-        <button className="list-update-btn">Update</button>
-        <button className="list-delete-btn">Delete</button>
-      </div>
-    ))}
+        <div className="filter-container">
+        <select
+        className="filter-select"
+        onChange={(e) => setFilterGenre(e.target.value)}
+      >
+        <option value={""}>All Genres</option>
+        {genresKeys.map((genre, index) => (
+          <option key={index} value={genre}>
+            {genre}
+          </option>
+        ))}
+      </select>
+      <select
+        className="filter-select"
+        onChange={(e) => setFilterStatus(e.target.value)}
+      >
+        <option value={""}>All Statuses</option>
+        {filterKeys.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
 
+        </div>
+
+
+
+
+      </div>
+
+     
+
+      {filteredAnime.length === 0 && (
+        <div
+          className="main-content"
+          style={{ color: "white", textAlign: "center" }}
+        >
+          Broaden Your Anime Palette, Add Some More To Your List{" "}
+        </div>
+      )}
+      {filteredAnime.map((anime) => (
+        <div className="list-card" key={anime._id}>
+          <img src={anime.image} alt={anime.title} />
+
+          <div className="list-details">
+            <h4>{anime.title}</h4>
+            <p>Genres: {anime.genres.join(", ")}</p>
+            <p>Episodes Watched: {anime.episodesWatched}</p>
+            <p style={{ color: getRatingColor(anime.rating) }}>
+              Your Rating: {anime.rating}
+            </p>
+            <p className="list-status-text">Status: {anime.status}</p>
+          </div>
+
+          <button className="list-update-btn">Update</button>
+          <button className="list-delete-btn">Delete</button>
+        </div>
+      ))}
     </div>
   );
 }

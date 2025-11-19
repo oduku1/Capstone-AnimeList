@@ -144,6 +144,8 @@ app.post("/api/users/:username/anime", async (req, res) => {
     const { username } = req.params;
     const { title, episodes, image, status, rating, episodesWatched,genres } = req.body;
 
+
+
     const user = await UserModel.findOne({ username });
 
     if (!user) {
@@ -159,6 +161,7 @@ app.post("/api/users/:username/anime", async (req, res) => {
       status,
       rating,
       episodes,
+      dateAdded: new Date(),
       userId: user._id
     });
 

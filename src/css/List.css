@@ -113,6 +113,14 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   }
   
+  .query-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
   
   
   

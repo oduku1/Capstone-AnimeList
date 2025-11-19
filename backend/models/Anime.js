@@ -15,6 +15,10 @@ const animeSchema = new mongoose.Schema({
         default: 0,
     },
     image: String,
+    dateAdded: {
+        type: Date,
+        default: Date.now
+      },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 
 })
