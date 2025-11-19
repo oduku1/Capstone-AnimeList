@@ -142,35 +142,72 @@ app.post("/api/register", async (req, res) => {
 app.post("/api/users/:username/anime", async (req, res) => {
   try {
     const { username } = req.params;
-    const { title, episodes, image, status, rating, episodesWatched,genres } = req.body;
+    const {
+      title,
+      episodes,
+      image,
+      status,
+      rating,
+      episodesWatched,
+      genres,
+      dateAired,
+      trailer,
+      mal_score,
+      anime_duration
+    } = req.body;
 
-
-
+    // 1. Find user first
     const user = await UserModel.findOne({ username });
-
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Save anime with real MongoDB user ID
+    // 2. Check if anime already exists for this user
+    const existingAnime = await AnimeModel.findOne({
+      title,
+      userId: user._id,
+    });
+
+    if (existingAnime) {
+      return res.status(400).json({ error: "Anime is already in your list" });
+    }
+
+    //3. Data Validation + Correction
+    let userEpisodesWatched = episodesWatched; 
+    if (status === "Completed"){
+      userEpisodesWatched = episodes;
+    }
+
+    let userStatus = status
+    if (userEpisodesWatched >= episodes) {
+      userStatus = "Completed";
+      userEpisodesWatched = episodes
+    }
+
+    let userRating = Math.min(rating, 10);
+  
+    // 4. Add anime
     const newAnime = new AnimeModel({
       title,
       genres,
       image,
-      episodesWatched,
-      status,
-      rating,
+      episodesWatched: userEpisodesWatched,
+      status: userStatus,
+      rating:userRating,
       episodes,
-      dateAdded: new Date(),
-      userId: user._id
+      dateAired,
+      trailer,
+      mal_score,
+      anime_duration, 
+      userId: user._id,
     });
 
     await newAnime.save();
 
-    res.status(201).json(newAnime);
+    return res.status(201).json(newAnime);
   } catch (e) {
     console.error(e);
-    res.status(500).json({ error: "Failed to add anime" });
+    return res.status(500).json({ error: "Failed to add anime" });
   }
 });
 

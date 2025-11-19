@@ -58,7 +58,7 @@ export default function Discover() {
                 </div>
 
                 <Link
-                  to={`/anime/${encodeURIComponent(a.title)}`}
+                  to={`/anime/${encodeURIComponent(a.mal_id)}`}
                   className="anime-title-link"
                   onClick={()=>setSelectedAnime(a)}
                 >
@@ -72,7 +72,6 @@ export default function Discover() {
         </div>
       </div>
 
-      {/* Pagination UI */}
       <div className="pagination-container">
         <button
           onClick={prevPage}

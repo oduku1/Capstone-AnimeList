@@ -1,0 +1,154 @@
+/* === MAIN WRAPPER (SIDE-BY-SIDE LAYOUT) === */
+.anime-main-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: flex-start;
+    gap: 35px;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+  
+  
+  /* === LEFT SIDE: Sticky Title + Image + Button === */
+  .anime-page-left {
+    position: sticky;
+    top: 70px;
+    flex-shrink: 0;        /* prevents shrinking */
+    width: 35%;            /* tighter & more balanced */
+    
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+  }
+  
+  
+  /* Title */
+  .anime-page-left h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+  }
+  
+  
+  /* Poster */
+  .anime-image {
+    width: 260px;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.45);
+    object-fit: cover;
+  }
+  
+  
+  /* Button */
+  .anime-page-left button {
+    background: linear-gradient(90deg, #e22d8efb, #e83f7ae3, #8a0347);
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+    width: 60%;
+  }
+  
+  .anime-page-left button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  
+  
+  
+  /* === RIGHT SIDE: Page Content === */
+  .anime-page-right {
+    width: 65%;
+    padding: 10px;
+  }
+  
+  
+  /* Summary Box */
+  .summary {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    margin-bottom: 20px;
+  }
+  
+  .summary h4 {
+    margin-bottom: 12px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .summary p {
+    font-size: 15px;
+    color: #ddd;
+    line-height: 1.65;
+    text-align: center;
+
+  }
+  .summary.synopsis-box p {
+    text-align: left;
+  }
+  
+  
+  
+  /* Log Button */
+  .log-btn {
+    margin-top: 10px;
+    background: #444;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+  }
+  
+  .log-btn:hover {
+    background: #666;
+  }
+  
+  
+  
+  /* === RESPONSIVE MOBILE DESIGN === */
+  @media (max-width: 900px) {
+  
+    .anime-main-content {
+    padding-top: 50px;
+      flex-direction: column;
+      gap: 20px;
+      padding: 10px;
+    }
+  
+    .anime-page-left {
+      position: relative;  /* disable sticky on mobile */
+      width: 100%;
+      top: 0;
+    }
+  
+    .anime-page-right {
+      width: 100%;
+    }
+  
+    .anime-image {
+      width: 220px;
+    }
+  
+    .anime-page-left button {
+      width: 80%;
+    }
+  }
+  

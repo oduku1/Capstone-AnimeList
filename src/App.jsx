@@ -12,6 +12,7 @@ import List from "./pages/List.jsx";
 import SingleAnime from "./pages/SingleAnime.jsx";
 import { searchAnime } from "./api_fetching/jikan.js";
 import SearchPage from "./pages/Search.jsx";
+import Profile from "./pages/List.jsx";
 
 function App() {
   const {  setAnime,  setLoading } = useContext(AuthContext);
@@ -45,13 +46,14 @@ function App() {
   
 
   {/* SINGLE ANIME */}
-  <Route path="/anime/:anime" element={<SingleAnime />} />
+  <Route path="/anime/:anime_id" element={<SingleAnime />} />
 
   {/* Auth */}
   <Route path="/login" element={<LoginPage />} />
   <Route path="/register" element={<RegisterPage />} />
 
   {/* Profile */}
+  <Route path = "/profile/:username" element= {<Profile/>}/>
   <Route path="/list/:username" element={<List />} />
 </Routes>
     </>

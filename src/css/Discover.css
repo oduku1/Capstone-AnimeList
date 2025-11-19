@@ -218,7 +218,7 @@
   .popup-close {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
-    background: #ff6f61;
+    background: #ff4081;
     border-radius: 5px;
     border: none;
     color: white;
@@ -230,4 +230,96 @@
     background: #ff856f;
   }
   
+
+  .popup-add-btn{
+    background-color: #ff4081;
+    border:none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-right: 2px;
+    color:white;
+  }
+
+  .add-anime-box { 
+    display: flex;
+    row-gap: 5px;
+    flex-direction: column;
+    border: 1px solid #ff4081;
+    margin: auto;
+    border-radius: 5px ;
+    width: 80%;
+    gap: 15px; 
+    padding: 20px;
+    max-width: 400px;   
+  }
+
+  .status-select,
+.episodes-watched,
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+
+
+.add-anime-box input,
+.add-anime-box select {
+  padding: 6px 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.add-anime-box button {
+  padding: 10px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
   
+ /* Initially hidden */
+.login-hint {
+  display: none; /* hides by default */
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  bottom: 8px;
+  right: 35px;
+
+  padding: 6px 10px;   
+  width: auto;        
+  font-size: 0.7rem;
+  font-weight: 600;
+
+  border-radius: 6px;
+  user-select: none;
+  cursor: default;
+
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  background-color: #ff4081;
+  color: white;
+
+  box-shadow: 0 0 6px rgba(255, 92, 147, 0.4);
+}
+
+.image-container:hover .login-hint {
+  display: flex;
+  opacity: 1;
+}
+
+body.light .login-hint {
+  background-color: #ff4081;
+}
+
+body.dark .login-hint {
+  background-color: #ff4081;
+  box-shadow: 0 0 10px rgba(255, 92, 147, 0.5);
+}

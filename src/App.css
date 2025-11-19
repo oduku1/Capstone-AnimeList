@@ -53,7 +53,7 @@ body.light .nav-left a {
 
 .nav-left a:hover {
   color: white;
-  background-color: #ff6f61;
+  background-color:#ff4081;
   text-decoration: none;
 }
 
@@ -72,37 +72,38 @@ body.light .nav-left a {
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
   user-select: none;
   box-shadow: none;
   outline-offset: 2px;
 }
 
-/* Light mode styles */
+/* ---- Light Mode ---- */
 body.light .login-btn {
-  background-color: #ff6f61; /* primary pink */
+  background-color: #ff4081;
   color: white;
 }
 
 body.light .login-btn:hover,
 body.light .login-btn:focus {
-  background-color: #ff856f;
-  outline: 2px solid #ff856f;
-  box-shadow: 0 0 8px rgba(255, 111, 97, 0.6);
+  background-color: #ff5c93;
+  outline: 2px solid #ff5c93;
+  box-shadow: 0 0 8px rgba(255, 92, 147, 0.45);
 }
 
-/* Dark mode styles */
+/* ---- Dark Mode ---- */
 body.dark .login-btn {
-  background-color: #ff4081; /* brighter pink */
+  background-color: #ff4081;
   color: white;
 }
 
 body.dark .login-btn:hover,
 body.dark .login-btn:focus {
-  background-color: #ff6f91;
-  outline: 2px solid #ff6f91;
-  box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
+  background-color: #ff5c93;
+  outline: 2px solid #ff5c93;
+  box-shadow: 0 0 12px rgba(255, 92, 147, 0.6);
 }
+
 
 /* === SEARCH INPUT === */
 .search-input {

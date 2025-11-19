@@ -75,7 +75,7 @@ export default function SearchBar() {
     setFullResults([anime]);
     queriedAnime.current = [anime];
 
-    navigate(`/anime/${encodeURIComponent(anime.title)}`);
+    navigate(`/anime/${encodeURIComponent(anime.mal_id)}`);
     setShowDropdown(false);
     setQuery("");
   }

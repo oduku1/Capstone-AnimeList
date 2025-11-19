@@ -144,3 +144,39 @@
     }
   }
   
+  .img-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .img-container img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  /* Circular score badge */
+  .mal-score {
+    position: absolute;
+    bottom: 140px;         /* move it where you want */
+    left: 77px;
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+
+ 
+  }
+
+  body.light .empty-list{
+    color:black
+  }
+
+  body.dark .empty-list{
+    color: white;
+  }

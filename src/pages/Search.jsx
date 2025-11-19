@@ -44,7 +44,7 @@ export default function SearchPage() {
                   )}
                 </div>
                 <Link
-                  to={`/anime/${encodeURIComponent(res.title)}`}
+                  to={`/anime/${encodeURIComponent(res.mal_id)}`}
                   className="anime-title-link"
                   onClick={()=>setSelectedAnime(res)}
                 >

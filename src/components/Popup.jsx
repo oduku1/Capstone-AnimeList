@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function Popup({ selectedAnime, onClose }) {
   const [add, setAdd] = useState(false);
+  const [error,setError] = useState("")
   const {user} = useContext(AuthContext);
   const [success,setSuccess] = useState("")
   const genres = selectedAnime.genres.map(g => g.name);
@@ -36,7 +37,11 @@ export default function Popup({ selectedAnime, onClose }) {
         status,
         rating,
         episodes,
+        trailer: selectedAnime.trailer.embed_url,
+        mal_score: selectedAnime.score,
+        dateAired: new Date((selectedAnime.aired.from)),
         dateAdded: new Date(),
+        anime_duration: selectedAnime.duration
       });
       setSuccess("Added Anime to List! Closing Popup")
       setTimeout(()=>{
@@ -45,7 +50,17 @@ export default function Popup({ selectedAnime, onClose }) {
 
       },1500)
     } catch (e) {
+      // Check if backend sent an error
+      if (e.response && e.response.data && e.response.data.error) {
+        setError(e.response.data.error);
+      } else {
+        setError("Failed to add anime. Please try again.");
+      }
+  
       console.error("Failed to add anime:", e);
+  
+      // Clear error after a few seconds if you want
+      setTimeout(() => setError(""), 3000);
     }
   };
 
@@ -53,14 +68,13 @@ export default function Popup({ selectedAnime, onClose }) {
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-box" onClick={(e) => e.stopPropagation()}>
 
-      <button onClick={()=>console.log(user)}>user</button>
 
         <h2>{title}</h2>
         <img src={image} alt={title} className="popup-image" />
         <p>Episodes: {episodes || "N/A"}</p>
         <p>Status: {selectedAnime.status || "Unknown"}</p>
 
-        <button onClick={() => setAdd((prev) => !prev)}>
+        <button className="popup-add-btn" onClick={() => setAdd((prev) => !prev)}>
           {add ? "Hide" : "Add to list"}
         </button>
 
@@ -77,7 +91,7 @@ export default function Popup({ selectedAnime, onClose }) {
               </select>
             </div>
             <div className="episodes-watched">
-              Episodes Watched:
+              <p>Episodes Watched:</p>
               <input
                 type="number"
                 value={episodesWatched}
@@ -102,6 +116,7 @@ export default function Popup({ selectedAnime, onClose }) {
           </div>
         )}
         {success && <p style={{ color: "green" }}>{success}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
         <button className="popup-close" onClick={onClose}>
           Close
