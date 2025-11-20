@@ -19,7 +19,7 @@ export default function NavBar({ onSearch }) {
         <Link to="/">Home</Link>
         <Link to="/discover">Discover</Link>
         {loggedIn && <Link to={`/list/${user.username}`}>My List</Link>}
-        {loggedIn && <Link top={`/profile/${user.username}`}>My Profile</Link>}
+        {loggedIn && <Link to={`/profile/${user.username}`}>My Profile</Link>}
       </div>
 
       <div className="nav-right">
