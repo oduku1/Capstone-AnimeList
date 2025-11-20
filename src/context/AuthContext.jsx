@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useRef } from "react";
 import getData from "../api_fetching/jikan";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode"; // fix import for jwtDecode
 
 export const AuthContext = createContext();
 
@@ -12,7 +12,11 @@ export function AuthProvider({ children }) {
   const [anime, setAnime] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [userAnime, setUserAnime] = useState([]);
+  // Initialize userAnime from localStorage if exists
+  const [userAnime, setUserAnime] = useState(() => {
+    const saved = localStorage.getItem("userAnime");
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const [results, setResults] = useState([]);
   const queriedAnime = useRef([]);
@@ -24,7 +28,10 @@ export function AuthProvider({ children }) {
   const [selectedAnime, setSelectedAnime] = useState(null);
   const [page, setPage] = useState(1);
 
-  // ✅ AUTO LOGIN USING JWT TOKEN
+  useEffect(() => {
+    localStorage.setItem("userAnime", JSON.stringify(userAnime));
+  }, [userAnime]);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -33,7 +40,6 @@ export function AuthProvider({ children }) {
     try {
       const decoded = jwtDecode(token);
 
-      // Check if token is expired
       if (decoded.exp * 1000 < Date.now()) {
         localStorage.removeItem("token");
         return;
@@ -41,19 +47,19 @@ export function AuthProvider({ children }) {
 
       setUser({ username: decoded.username, id: decoded.id });
       setLoggedIn(true);
-
     } catch (err) {
       console.error("Invalid or corrupted token");
       localStorage.removeItem("token");
     }
   }, []);
 
-  // 🔥 Logout function usable anywhere
+  // Logout function
   function logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("userAnime"); // Clear userAnime on logout if you want
     setLoggedIn(false);
     setUser(null);
-    navigate("/login"); 
+    // Add navigate import and call if you want here or handle externally
   }
 
   // Fetch Top Trending Anime (supports pagination)
@@ -79,7 +85,6 @@ export function AuthProvider({ children }) {
     setUser,
     loggedIn,
     setLoggedIn,
-
     logout,
 
     anime,
@@ -109,12 +114,8 @@ export function AuthProvider({ children }) {
     setUserAnime,
 
     fullResults,
-    setFullResults
+    setFullResults,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

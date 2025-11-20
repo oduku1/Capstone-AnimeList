@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
@@ -138,6 +138,71 @@ app.post("/api/register", async (req, res) => {
 });
 
 
+app.patch("/api/users/:username/anime", async (req, res) => {
+  try {
+    const { mal_id, rating, episodesWatched, status, episodes } = req.body;
+    const username = req.params.username;
+
+    const currentUser = await UserModel.findOne({ username });
+    if (!currentUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const currentAnime = await AnimeModel.findOne({
+      userId: currentUser._id,
+      mal_id: mal_id,
+    });
+
+    if (!currentAnime) {
+      return res.status(404).json({ error: "Anime not found" });
+    }
+
+    let userEpisodesWatched = episodesWatched ?? currentAnime.episodesWatched;
+    let userStatus = status ?? currentAnime.status;
+    let userRating = rating !== undefined ? rating : currentAnime.rating;
+
+    if (userStatus === "Completed") {
+      userEpisodesWatched = episodes;
+    }
+
+    if (userEpisodesWatched >= episodes) {
+      userStatus = "Completed";
+      userEpisodesWatched = episodes;
+    }
+
+    // Build a simple, user-friendly history message for changes
+    const time = new Date().toLocaleDateString();
+    let historyMessage = "";
+
+    if (currentAnime.status !== userStatus) {
+      historyMessage = `${currentAnime.title} Status changed to "${userStatus}" (${time})`;
+    } else if (currentAnime.episodesWatched !== userEpisodesWatched) {
+      historyMessage = `Watched ${currentAnime.episodesWatched} → ${userEpisodesWatched} episodes (${time})`;
+    } else if (rating !== undefined && rating !== currentAnime.rating) {
+      historyMessage = `${currentAnime.title} Rating updated to ${userRating}/10 (${time})`;
+    } else {
+      historyMessage = `Updated ${currentAnime.title} at (${time})`;
+    }
+
+    currentAnime.episodesWatched = userEpisodesWatched;
+    currentAnime.status = userStatus;
+    currentAnime.rating = userRating;
+
+    currentAnime.history.push(historyMessage);
+
+    await currentAnime.save();
+
+    res.json({
+      message: "Anime Updated Successfully",
+      anime: currentAnime,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "server error" });
+  }
+});
+
+
 
 app.post("/api/users/:username/anime", async (req, res) => {
   try {
@@ -154,16 +219,14 @@ app.post("/api/users/:username/anime", async (req, res) => {
       trailer,
       mal_score,
       anime_duration,
-      mal_id
+      mal_id,
     } = req.body;
 
-    // 1. Find user first
     const user = await UserModel.findOne({ username });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // 2. Check if anime already exists for this user
     const existingAnime = await AnimeModel.findOne({
       title,
       userId: user._id,
@@ -173,35 +236,37 @@ app.post("/api/users/:username/anime", async (req, res) => {
       return res.status(400).json({ error: "Anime is already in your list" });
     }
 
-    //3. Data Validation + Correction
-    let userEpisodesWatched = episodesWatched; 
-    if (status === "Completed"){
+    let userEpisodesWatched = episodesWatched;
+    if (status === "Completed") {
       userEpisodesWatched = episodes;
     }
 
-    let userStatus = status
+    let userStatus = status;
     if (userEpisodesWatched >= episodes) {
       userStatus = "Completed";
-      userEpisodesWatched = episodes
+      userEpisodesWatched = episodes;
     }
 
     let userRating = Math.min(rating, 10);
-  
-    // 4. Add anime
+
+    const time = new Date().toLocaleDateString();
+    const historyMessage = `Added ${title} with status "${userStatus}", episodes watched: ${userEpisodesWatched}, rating: ${userRating}/10 (${time})`;
+
     const newAnime = new AnimeModel({
       title,
       genres,
       image,
       episodesWatched: userEpisodesWatched,
       status: userStatus,
-      rating:userRating,
+      rating: userRating,
       episodes,
       dateAired,
       trailer,
       mal_score,
-      anime_duration, 
+      anime_duration,
       userId: user._id,
-      mal_id
+      mal_id,
+      history: [historyMessage],
     });
 
     await newAnime.save();
@@ -213,44 +278,6 @@ app.post("/api/users/:username/anime", async (req, res) => {
   }
 });
 
-
-app.patch("/api/users/:username/anime", async (req,res)=>{
-  try{
-    const {
-      mal_id, rating, episodesWatched, status} = req.body
-    const username = req.params
-    const currentUser = await UserModel.findOne({username})
-
-    if (!currentUser) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    //2. check if anime is in user's list
-
-    const currentAnime = await AnimeModel.findOne({userId: currentUser._id, mal_id:mal_id})
-
-    if (!currentAnime) {
-      return res.status(404).json({ error: "Anime not found" });
-    }
-
-    //3. update fields
-
-    if(rating!==undefined){currentAnime.rating = rating}
-    if(episodesWatched!==undefined){currentAnime.episodesWatched = episodesWatched}
-    if(status !== undefined){currentAnime.status = status}
-
-    await currentAnime.save()
-
-    res.json({message: "Anime Updated Successfully",
-      anime:currentAnime
-    })
-
-
-  }
-  catch(e){
-    console.error(e)
-    res.status(500).json({error:"server error"})
-  }
-})
 
 app.get("/api/profile/:username", async (req, res) => {
   try {
