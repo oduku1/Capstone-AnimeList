@@ -4,14 +4,17 @@ import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import UpdatePopup from "../components/UpdatePopup";
 import "../css/List.css";
+import DeletePopup from "../components/DeletePopup";
 
 export default function Profile() {
   const { user, loggedIn, userAnime, setUserAnime} = useContext(AuthContext);
   const [updateSelect, setUpdateSelect ] = useState(null)
+  const [deleteSelect,setDeleteSelect ] = useState(null)
   const [filterGenre, setFilterGenre] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
   const [sort, setSort] = useState("");
   const [openUpdate, setOpenUpdate] = useState(false)
+  const [openDelete,setOpenDelete] = useState(false)
   const { username } = useParams();
   const navigate = useNavigate();
 
@@ -20,6 +23,11 @@ export default function Profile() {
   function handleUpdate(anime) {
     setUpdateSelect(anime);
     setOpenUpdate(true);
+  }
+
+  function handleDelete(anime){
+    setDeleteSelect(anime)
+    setOpenDelete(true)
   }
 
   const sortKeys = [
@@ -254,7 +262,7 @@ export default function Profile() {
           </div>
 
           <button onClick={()=>handleUpdate(anime)} className="list-update-btn">Update</button>
-          <button className="list-delete-btn">Delete</button>
+          <button onClick={()=>handleDelete(anime)} className="list-delete-btn">Delete</button>
         </div>
       ))}
 
@@ -267,6 +275,19 @@ export default function Profile() {
           setUpdateSelect(null)}
 
         }/>
+      }
+      {
+        openDelete 
+        &&
+        <DeletePopup
+
+        selectedForDelete = {deleteSelect}
+
+        onClose = {()=>{
+          setOpenDelete(false);
+          setDeleteSelect(null)}}
+        />
+      
       }
     
     </div>
