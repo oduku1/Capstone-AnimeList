@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import AnimeModel from "./models/Anime.js";
 import UserModel from "./models/Users.js";
+import { HistoryModel } from "./models/History.js";
 
 const app = express();
 const saltRounds = 10; 
@@ -23,7 +24,6 @@ app.use(
   })
 );
 
-// ✅ Optional: extra safety headers
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:5173");
   res.header(
@@ -34,7 +34,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ MongoDB connection
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
@@ -152,6 +151,14 @@ app.delete("/api/users/:username/anime",async(req,res)=>{
         error: "Anime not found in user's list",
       });
     }
+
+    await HistoryModel.create({
+      animeImg: deletedAnime.image,
+      animeTitle: deletedAnime.title,
+      userId: currentUser._id,
+      text: `Deleted "${deletedAnime.title}" from your list`,
+    });
+
     return res.status(200).json({
       message: "Anime removed from list successfully",
       deleted: deletedAnime,
@@ -199,26 +206,23 @@ app.patch("/api/users/:username/anime", async (req, res) => {
       userEpisodesWatched = episodes;
     }
 
-    const time = new Date().toLocaleDateString();
-    let historyMessage = "";
-
-    if (currentAnime.status !== userStatus) {
-      historyMessage = `${currentAnime.title} Status changed to "${userStatus}" (${time})`;
-    } else if (currentAnime.episodesWatched !== userEpisodesWatched) {
-      historyMessage = `Watched ${currentAnime.episodesWatched} → ${userEpisodesWatched} episodes (${time})`;
-    } else if (rating !== undefined && rating !== currentAnime.rating) {
-      historyMessage = `${currentAnime.title} Rating updated to ${userRating}/10 (${time})`;
-    } else {
-      historyMessage = `Updated ${currentAnime.title} at (${time})`;
-    }
+    
 
     currentAnime.episodesWatched = userEpisodesWatched;
     currentAnime.status = userStatus;
     currentAnime.rating = userRating;
 
-    currentAnime.history.push(historyMessage);
 
     await currentAnime.save();
+
+    await HistoryModel.create({
+      animeImg: currentAnime.image,
+      animeTitle: currentAnime.title,
+      userId: currentUser._id,
+      text: `Updated "${currentAnime.title}" in your list`,
+    });
+
+
 
     res.json({
       message: "Anime Updated Successfully",
@@ -277,8 +281,6 @@ app.post("/api/users/:username/anime", async (req, res) => {
 
     let userRating = Math.min(rating, 10);
 
-    const time = new Date().toLocaleDateString();
-    const historyMessage = `Added ${title} with status "${userStatus}", episodes watched: ${userEpisodesWatched}, rating: ${userRating}/10 (${time})`;
 
     const newAnime = new AnimeModel({
       title,
@@ -294,10 +296,16 @@ app.post("/api/users/:username/anime", async (req, res) => {
       anime_duration,
       userId: user._id,
       mal_id,
-      history: [historyMessage],
     });
 
     await newAnime.save();
+
+    await HistoryModel.create({
+      animeImg:image, 
+      animeTitle:title, 
+      userId:user._id,
+      text: `Added "${title}" to your list`
+    })
 
     return res.status(201).json(newAnime);
   } catch (e) {
