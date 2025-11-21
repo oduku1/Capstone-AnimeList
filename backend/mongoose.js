@@ -12,10 +12,8 @@ import UserModel from "./models/Users.js";
 const app = express();
 const saltRounds = 10; 
 const JWT_SECRET = process.env.JWT_SECRET
-// ✅ Enable JSON parsing first
 app.use(express.json());
 
-// ✅ Allow your frontend origin and preflight requests
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -137,6 +135,37 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+app.delete("/api/users/:username/anime",async(req,res)=>{
+  try{
+    const {mal_id} = req.body
+    const username = req.params.username
+    const currentUser = await UserModel.findOne({username})
+    if (!currentUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const deletedAnime = await AnimeModel.findOneAndDelete({
+      userId: currentUser._id,
+      mal_id: mal_id,
+    });
+    if (!deletedAnime) {
+      return res.status(404).json({
+        error: "Anime not found in user's list",
+      });
+    }
+    return res.status(200).json({
+      message: "Anime removed from list successfully",
+      deleted: deletedAnime,
+    });
+
+  }
+  catch(e){
+    console.error(err)
+    return res.status(500).json({
+      error: "Server error while deleting anime",
+    });
+
+  }
+})
 
 app.patch("/api/users/:username/anime", async (req, res) => {
   try {
@@ -170,7 +199,6 @@ app.patch("/api/users/:username/anime", async (req, res) => {
       userEpisodesWatched = episodes;
     }
 
-    // Build a simple, user-friendly history message for changes
     const time = new Date().toLocaleDateString();
     let historyMessage = "";
 

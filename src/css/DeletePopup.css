@@ -1,4 +1,50 @@
-.delete-validation{
-    color:#E53935
+.delete-validation {
+  color: #e53935;
 }
 
+.yes-btn {
+  background-color: #43a047;
+  margin: 5px;
+    border:none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-right: 2px;
+    color:white;
+    cursor: pointer;
+    transition: background-color 0.3s ease,transform 0.2s ease;
+}
+
+.yes-btn:hover {
+  background-color: #4caf50;
+  transform: translate(-2px, -2px);
+
+}
+
+.yes-btn:active {
+  background-color: #388e3c;
+  transform: scale(0.94) translateY(0px);
+
+}
+
+.no-btn {
+  background-color: #e53935;
+  margin: 5px;
+    border:none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-right: 2px;
+    color:white;
+    cursor: pointer;
+    transition: background-color 0.3s ease,transform 0.2s ease;
+}
+
+.no-btn:hover {
+  background-color: #f44336;
+  transform: translate(-2px, -2px);
+
+}
+
+.no-btn:active {
+  background-color: #c62828;
+  transform: scale(0.94) translateY(0px);
+}
