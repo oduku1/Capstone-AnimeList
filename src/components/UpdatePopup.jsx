@@ -74,17 +74,9 @@ export default function UpdatePopup({ selectedForUpdate, onClose }) {
         {image && <img src={image} alt={title} className="popup-image" />}
         <p>Episodes: {episodes || "N/A"}</p>
 
-        <button
-          className="popup-add-btn"
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-          disabled
-        >
-          Update Anime
-        </button>
+       
 
-        <form className="add-anime-box" onSubmit={handleSubmit}>
+        <form className="add-anime-box" onSubmit={handleSubmit} style={{marginBottom:"15px",marginTop:"15px"}}>
           <div className="status-select">
             Status:
             <select
@@ -132,7 +124,8 @@ export default function UpdatePopup({ selectedForUpdate, onClose }) {
           </button>
         </form>
 
-        <button className="popup-close" onClick={onClose}>
+
+        <button className="popup-add-btn" onClick={onClose}>
           Close
         </button>
       </div>

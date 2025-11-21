@@ -117,7 +117,6 @@
     gap: 15px;
   }
   
-  /* === PAGINATION BUTTONS === */
   .page-btn {
     padding: 10px 18px;
     background: #333;
@@ -145,7 +144,6 @@
     pointer-events: none;
   }
   
-  /* === PAGE NUMBER DISPLAY === */
   .page-number {
     color: white;
     font-size: 1.1rem;
@@ -153,7 +151,6 @@
     user-select: none;
   }
   
-  /* === RESPONSIVE === */
   @media (max-width: 500px) {
     .anime-card {
       width: 140px;
@@ -181,7 +178,6 @@
   }
   
   
-/* === POPUP === */
 .popup-overlay {
     position: fixed;
     inset: 0;
@@ -215,30 +211,27 @@
     border-radius: 4px;
   }
   
-  .popup-close {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background: #ff4081;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .popup-close:hover {
-    background: #ff856f;
-  }
-  
 
   .popup-add-btn{
     background-color: #ff4081;
+    margin: 5px;
     border:none;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     margin-right: 2px;
     color:white;
+    cursor: pointer;
+    transition: background-color 0.3s ease,transform 0.2s ease;
   }
+  .popup-add-btn:hover{
+    background-color: #ff5c93;
+    transform: translate(-2px, -2px);
+  }
+
+  .popup-add-btn:active{
+    transform: scale(0.94) translateY(0px);
+  }
+
 
   .add-anime-box { 
     display: flex;
@@ -277,14 +270,26 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  
+}
+.add-anime-box button:hover {
+  background-color: #47c464;
+  transform: translate(-2px, -2px);
+
+
 }
 
+.add-anime-box button:active{
+  transform: scale(0.94) translateY(0px);
 
+
+
+}
 
   
- /* Initially hidden */
 .login-hint {
-  display: none; /* hides by default */
+  display: none; 
   align-items: center;
   justify-content: center;
 

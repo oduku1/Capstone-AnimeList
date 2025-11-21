@@ -91,7 +91,6 @@ body.light .login-btn:focus {
   box-shadow: 0 0 8px rgba(255, 92, 147, 0.45);
 }
 
-/* ---- Dark Mode ---- */
 body.dark .login-btn {
   background-color: #ff4081;
   color: white;

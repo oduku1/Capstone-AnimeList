@@ -91,13 +91,7 @@ export default function Popup({ selectedAnime, onClose }) {
         <p>Episodes: {episodes || "N/A"}</p>
         <p>Status: {status || "Unknown"}</p>
 
-        <button
-          type="button"
-          className="popup-add-btn"
-          onClick={() => setAdd((prev) => !prev)}
-        >
-          {add ? "Hide" : "Add to list"}
-        </button>
+       
 
         {add && (
           <form className="add-anime-box" onSubmit={handleSubmit}>
@@ -144,8 +138,17 @@ export default function Popup({ selectedAnime, onClose }) {
         )}
         {success && <p style={{ color: "green" }}>{success}</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
+        
+        <button
+          type="button"
+          className="popup-add-btn"
+          onClick={() => setAdd((prev) => !prev)}
+          style={{marginTop:"15px"}}
+        >
+          {add ? "Hide" : "Add to list"}
+        </button>
 
-        <button type="button" className="popup-close" onClick={onClose}>
+        <button type="button" className="popup-add-btn" onClick={onClose}>
           Close
         </button>
       </div>
