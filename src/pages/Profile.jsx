@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "../css/Profile.css";
+import StatusChart from "../components/StatusChart";
+import GenreChart from "../components/GenreChart";
 
 export default function ProfilePage() {
   const { user, userAnime } = useContext(AuthContext);
@@ -52,8 +54,19 @@ export default function ProfilePage() {
       <div className="profile-panels">
         <div className="panel-left">
           <div className="profile-box">
-            <h3>Genre Overview</h3>
-            <div className="genre-bars"></div>
+            <h3>Your Top 5 Genres</h3>
+            <div className="genre-bars">
+              <GenreChart/>
+            </div>
+          </div>
+
+          <div className="profile-box">
+            <h3>Your Statuses</h3>
+            <div className="genre-bars">
+              <StatusChart/>
+            </div>
+            
+            
           </div>
 
           <div className="profile-box">

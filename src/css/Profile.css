@@ -49,3 +49,7 @@ body.dark .profile-box {
   background: #151515;
   color: white;
 }
+
+.profile-box h3{
+  margin-bottom: 10px;
+}

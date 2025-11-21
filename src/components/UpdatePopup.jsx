@@ -92,7 +92,6 @@ export default function UpdatePopup({ selectedForUpdate, onClose }) {
               onChange={(e) => setStatus(e.target.value)}
               required
             >
-              <option value="Plan to Watch">Select status</option>
               <option value="Plan to Watch">Plan to Watch</option>
               <option value="Watching">Watching</option>
               <option value="Completed">Completed</option>

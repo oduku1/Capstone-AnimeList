@@ -5,12 +5,11 @@ import axios from "axios";
 export default function Popup({ selectedAnime, onClose }) {
   const [add, setAdd] = useState(false);
   const [error, setError] = useState("");
-  const { user } = useContext(AuthContext);
+  const { user, userAnime, setUserAnime } = useContext(AuthContext);
   const [success, setSuccess] = useState("");
 
   if (!selectedAnime) return null; // safety check
 
-  // Safely extract fields with fallback to avoid errors
   const {
     title,
     images = {},
@@ -62,6 +61,10 @@ export default function Popup({ selectedAnime, onClose }) {
           anime_duration: duration,
         }
       );
+
+      // Update userAnime state by appending new anime
+      setUserAnime((prev) => [...prev, res.data]);
+
       setSuccess("Added Anime to List! Closing Popup");
       setTimeout(() => {
         onClose();
@@ -105,7 +108,7 @@ export default function Popup({ selectedAnime, onClose }) {
                 onChange={(e) => setStatus(e.target.value)}
                 required
               >
-                <option value="Plan to Watch">Select status</option>
+                <option value="">Select status</option>
                 <option value="Plan to Watch">Plan to Watch</option>
                 <option value="Watching">Watching</option>
                 <option value="Completed">Completed</option>
