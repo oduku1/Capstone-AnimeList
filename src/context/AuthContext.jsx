@@ -56,10 +56,9 @@ export function AuthProvider({ children }) {
   // Logout function
   function logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("userAnime"); // Clear userAnime on logout if you want
+    localStorage.removeItem("userAnime"); nt
     setLoggedIn(false);
     setUser(null);
-    // Add navigate import and call if you want here or handle externally
   }
 
   // Fetch Top Trending Anime (supports pagination)
