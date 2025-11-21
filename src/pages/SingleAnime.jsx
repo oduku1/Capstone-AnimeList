@@ -41,7 +41,7 @@ export default function SingleAnime() {
   }
 
   return (
-    <div className="eanime-main-content">
+    <div className="anime-main-content">
       {/* LEFT SIDE */}
       <div className="anime-page-left">
         <h3>{selectedAnime.title}</h3>
