@@ -77,12 +77,14 @@ export default function GenreChart() {
     },
   };
 
-  return (
+  return data.labels.length > 0 ? (
     <div className="bg-[#111] p-6 rounded-xl shadow-xl max-w-xl mx-auto">
       <h2 className="text-center text-white text-lg mb-4">
         Genre Score Radar
       </h2>
       <Radar data={data} options={options} />
     </div>
+  ) : (
+    <p className="text-gray-400 text-center mt-4">No rated genres available</p>
   );
 }
