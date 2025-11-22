@@ -44,7 +44,7 @@ export default function StatusChart() {
     plugins: {
       legend: {
         position: "bottom",
-        labels: { color: "white" },
+        labels: { color: "gray" },
       },
     },
   };

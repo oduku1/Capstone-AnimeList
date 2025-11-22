@@ -206,23 +206,39 @@ app.patch("/api/users/:username/anime", async (req, res) => {
       userEpisodesWatched = episodes;
     }
 
-    
+    // Save old values to compare for history
+    const oldStatus = currentAnime.status;
+    const oldEpisodesWatched = currentAnime.episodesWatched;
+    const oldRating = currentAnime.rating;
 
     currentAnime.episodesWatched = userEpisodesWatched;
     currentAnime.status = userStatus;
     currentAnime.rating = userRating;
 
-
     await currentAnime.save();
+
+    const changes = [];
+
+    if (oldStatus !== userStatus) {
+      changes.push(`status: ${userStatus}`);
+    }
+    if (oldEpisodesWatched !== userEpisodesWatched) {
+      changes.push(`episodes watched: ${userEpisodesWatched}`);
+    }
+    if (oldRating !== userRating) {
+      changes.push(`rating: ${userRating}`);
+    }
+
+    const changeText = changes.length > 0
+      ? `Updated "${currentAnime.title}" with ${changes.join(", ")}`
+      : `No changes made to "${currentAnime.title}"`;
 
     await HistoryModel.create({
       animeImg: currentAnime.image,
       animeTitle: currentAnime.title,
       userId: currentUser._id,
-      text: `Updated "${currentAnime.title}" in your list`,
+      text: changeText,
     });
-
-
 
     res.json({
       message: "Anime Updated Successfully",
@@ -304,7 +320,7 @@ app.post("/api/users/:username/anime", async (req, res) => {
       animeImg:image, 
       animeTitle:title, 
       userId:user._id,
-      text: `Added "${title}" to your list`
+      text: `Added "${title}" with status: ${status}`
     })
 
     return res.status(201).json(newAnime);

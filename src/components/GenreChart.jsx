@@ -64,7 +64,7 @@ export default function GenreChart() {
         suggestedMax: 10,
         angleLines: { color: "#555" },
         grid: { color: "#444" },
-        pointLabels: { color: "white", font: { size: 14 } },
+        pointLabels: { color: "gray", font: { size: 14 } },
         ticks: {
           backdropColor: "transparent",
           color: "#ccc",
@@ -73,7 +73,7 @@ export default function GenreChart() {
       },
     },
     plugins: {
-      legend: { labels: { color: "white" } },
+      legend: { labels: { color: "gray" } },
     },
   };
 
@@ -85,6 +85,8 @@ export default function GenreChart() {
       <Radar data={data} options={options} />
     </div>
   ) : (
-    <p className="text-gray-400 text-center mt-4">No rated genres available</p>
+    <p className="text-gray-800 dark:text-gray-400 text-center mt-4">
+      No rated genres available
+    </p>
   );
 }
