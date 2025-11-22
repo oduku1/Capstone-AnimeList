@@ -4,28 +4,23 @@ import moon from"../assets/moon.svg"
 import sun from"../assets/sun.svg"
 
 export default function DarkModeToggle() {
-  // clearer naming for state setter
   const [dropdown, setDropdown] = useState(false);
   const wrapperRef = useRef(null);
   const { dark, setDark } = useContext(AuthContext);
 
-  // toggle when button clicked
   function handleButtonClick() {
     setDropdown(prev => !prev);
   }
 
-  // handler for clicking a menu item: toggle dark and close
   function handleToggleDark() {
     setDark(prev => (prev === "dark" ? "light": "dark"));
     setDropdown(false);
   }
 
-  // close dropdown on outside click or Esc
   useEffect(() => {
-    if (!dropdown) return; // only attach listeners when open
+    if (!dropdown) return; 
 
     function handleDocumentClick(e) {
-      // if click is outside wrapperRef, close
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
         setDropdown(false);
       }
@@ -79,7 +74,7 @@ export default function DarkModeToggle() {
             zIndex: 999,
           }}
         >
-          {/* Example menu items */}
+       
           <button
             role="menuitem"
             onClick={handleToggleDark}

@@ -334,6 +334,23 @@ app.get("/api/profile/:username", async (req, res) => {
   }
 });
 
+app.get("/api/profile/:username/history", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await UserModel.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const userHistory = await HistoryModel.find({ userId: user._id });
+
+    res.status(200).json({ userHistory });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 
 // ✅ Start server
 app.listen(3000, () => {

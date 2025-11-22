@@ -271,7 +271,7 @@ export default function Profile() {
         && 
         <UpdatePopup selectedForUpdate = {updateSelect} 
         onClose = {()=>{
-          setOpenUpdate(false);
+              setOpenUpdate(false);
           setUpdateSelect(null)}
 
         }/>

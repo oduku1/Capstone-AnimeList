@@ -1,50 +1,48 @@
 import { useContext } from "react";
+import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import "../css/Profile.css";
 import StatusChart from "../components/StatusChart";
 import GenreChart from "../components/GenreChart";
+import HistoryChart from "../components/HistoryChart";
 
 export default function ProfilePage() {
   const { user, userAnime } = useContext(AuthContext);
 
-  if (!user)
+
+  if (!user) {
     return (
       <div className="main-content">
         <p>Loading...</p>
       </div>
     );
+  }
 
-    function getDuration(durationStr){
-      if(!durationStr) return 0; 
-      let hours = 0;
-      let minutes = 0; 
+  function getDuration(durationStr) {
+    if (!durationStr) return 0;
+    let hours = 0;
+    let minutes = 0;
 
-      const hrMatch = durationStr.match(/(\d+)\s*hr/);
-      if (hrMatch) {
-        hours = parseInt(hrMatch[1], 10);
-      }
-
-      const minMatch = durationStr.match(/(\d+)\s*min/);
-      if (minMatch) {
-        minutes = parseInt(minMatch[1], 10);
-      }
-
-      return hours * 60 + minutes;
+    const hrMatch = durationStr.match(/(\d+)\s*hr/);
+    if (hrMatch) {
+      hours = parseInt(hrMatch[1], 10);
     }
 
+    const minMatch = durationStr.match(/(\d+)\s*min/);
+    if (minMatch) {
+      minutes = parseInt(minMatch[1], 10);
+    }
 
-    const totalMinutesWatched = userAnime.reduce((total,anime)=>{
-      const durationPerEpisode = getDuration(anime.anime_duration)
-      const episodesWatched = anime.episodesWatched; 
-      return total + durationPerEpisode * episodesWatched
-    },0) // value of total which is the second argument, an accumulator
+    return hours * 60 + minutes;
+  }
 
+  const totalMinutesWatched = userAnime.reduce((total, anime) => {
+    const durationPerEpisode = getDuration(anime.anime_duration);
+    const episodesWatched = anime.episodesWatched || 0;
+    return total + durationPerEpisode * episodesWatched;
+  }, 0);
 
- const daysWatched = (totalMinutesWatched / (60 * 24)).toFixed(2); // 2 decimal places
-
-
-
-
+  const daysWatched = (totalMinutesWatched / (60 * 24)).toFixed(2);
 
   return (
     <div className="profile-page">
@@ -56,22 +54,22 @@ export default function ProfilePage() {
           <div className="profile-box">
             <h3>Your Top 5 Genres</h3>
             <div className="genre-bars">
-              <GenreChart/>
+              <GenreChart />
             </div>
           </div>
 
           <div className="profile-box">
             <h3>Your Statuses</h3>
             <div className="genre-bars">
-              <StatusChart/>
+              <StatusChart />
             </div>
-            
-            
           </div>
 
           <div className="profile-box">
             <h3>Activity History</h3>
-            <div className="heatmap"></div>
+            <div className="heatmap">
+             <HistoryChart/>
+            </div>
           </div>
         </div>
 
@@ -90,15 +88,11 @@ export default function ProfilePage() {
             <h3>Average Score</h3>
             <p>
               {userAnime.length > 0
-                ? (
-                    userAnime
-                      .map((anime) => anime.rating || 0)
-                      .reduce((a, b) => a + b, 0) / userAnime.length
-                  ).toFixed(2)
+                ? (userAnime.map((anime) => anime.rating || 0).reduce((a, b) => a + b, 0) / userAnime.length).toFixed(2)
                 : "No ratings yet"}
             </p>
           </div>
-          <button onClick={() => console.log(userAnime)}></button>
+          <button onClick={() => console.log(history)}>Log history</button>
         </div>
       </div>
     </div>
