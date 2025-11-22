@@ -1,0 +1,15 @@
+.history-item {
+    display: flex;
+   align-items: center;
+    gap: 10px; 
+    margin: 10px;
+    
+   
+  }
+  
+  .history-item img {
+    width: 50px; 
+    height: auto;
+    border-radius: 4px; 
+  }
+  

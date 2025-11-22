@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import "../css/History.css"
 
 export default function HistoryChart() {
   const { user } = useContext(AuthContext);
@@ -28,10 +29,11 @@ export default function HistoryChart() {
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return (
-        <div>
+        <div className="history-container">
           {sortedUserHistory.map(history => (
             <div key={history._id} className="history-item">
-              {history.text}
+                 <img src={history.animeImg} alt={`${history.animeTitle} image`}/>
+                    {history.text}   
             </div>
           ))}
         </div>
