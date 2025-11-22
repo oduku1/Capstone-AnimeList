@@ -23,5 +23,16 @@ export default function HistoryChart() {
     getUserHistory();
   }, [user?.username]);
 
-  return <button onClick={() => console.log(userHistory)}>Log user History</button>;
-}
+  const sortedUserHistory = userHistory
+    .slice()
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    return (
+        <div>
+          {sortedUserHistory.map(history => (
+            <div key={history._id} className="history-item">
+              {history.text}
+            </div>
+          ))}
+        </div>
+      );}
