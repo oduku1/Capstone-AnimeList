@@ -8,6 +8,17 @@
   text-align: center;
 }
 
+body.light .profile-subtitle,
+body.light .profile-title {
+  color: black;
+}
+
+body.dark .profile-subtitle,
+body.dark .profile-title {
+  color: white;
+}
+
+
 .profile-panels {
   display: flex;
   gap: 25px;
@@ -15,7 +26,6 @@
   align-items: flex-start;
 }
 
-/* Left / right columns */
 .panel-left {
   flex: 2;
   display: flex;
@@ -27,10 +37,18 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  position: sticky;
+  top: 250px;
+  flex-shrink: 0;
+  width: 35%;
+  max-width: 350px;
+  padding: 20px;
+  text-align: center;
+  align-items: center;
+
 }
 
-/* Box style */
 .profile-box {
   background: var(--box-bg, #151515);
   padding: 20px;
@@ -39,7 +57,6 @@
   color: var(--text-color);
 }
 
-/* Light/Dark Mode Support */
 body.light .profile-box {
   background: #ffffff;
   color: #111;

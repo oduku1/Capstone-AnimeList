@@ -18,13 +18,11 @@ body::-webkit-scrollbar-thumb {
   background: #ff4081;
 }
 
-/* === GLOBAL LAYOUT === */
 .main-content {
   padding-top: 50px;
   position: relative;
 }
 
-/* === NAVBAR === */
 .nav {
   display: flex;
   position: sticky;
@@ -57,6 +55,13 @@ body.light .nav-left a {
   text-decoration: none;
 }
 
+.nav a.active {
+  color: #ff4081; 
+  font-weight: 600;
+  border-bottom: 2px solid #ff4081;
+}
+
+
 
 .nav-right {
   display: flex;
@@ -64,7 +69,6 @@ body.light .nav-left a {
   gap: 15px;
 }
 
-/* === LOGIN BUTTON IN NAV === */
 .login-btn {
   padding: 6px 14px;
   font-weight: 600;
@@ -78,7 +82,6 @@ body.light .nav-left a {
   outline-offset: 2px;
 }
 
-/* ---- Light Mode ---- */
 body.light .login-btn {
   background-color: #ff4081;
   color: white;
@@ -104,7 +107,6 @@ body.dark .login-btn:focus {
 }
 
 
-/* === SEARCH INPUT === */
 .search-input {
   padding: 8px 10px;
   border-radius: 6px;
@@ -117,7 +119,6 @@ body.dark .login-btn:focus {
   outline: none;
 }
 
-/* === SEARCH DROPDOWN === */
 .search-dropdown {
   position: absolute;
   top: 110%;
@@ -143,7 +144,6 @@ body.dark .login-btn:focus {
   background-color: #3a3a3a;
 }
 
-/* === AUTH FORM === */
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -192,9 +192,8 @@ body.dark .login-btn:focus {
   color: #ff856f;
 }
 
-/* === LIGHT MODE === */
 body.light {
-  background: #e6e6e6; /* softened from pure white */
+  background: #e6e6e6; 
   color: black
 }
 
@@ -221,7 +220,6 @@ body.light .auth-form {
   border: 2px solid #ccc;
 }
 
-/* Discover page text colors in light mode */
 body.light .discover-title,
 body.light .loading-text,
 body.light .page-number {
@@ -229,7 +227,7 @@ body.light .page-number {
 }
 
 body.light .anime-card {
-  background: #fff; /* lighter background */
+  background: #fff; 
   color: #222;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
@@ -301,7 +299,6 @@ body.dark .auth-form {
   border: 2px solid #333;
 }
 
-/* Discover page text colors in dark mode */
 body.dark .discover-title,
 body.dark .loading-text,
 body.dark .page-number {
@@ -351,5 +348,4 @@ body.dark .add-button:focus {
   box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
 }
 
-/* === HOME MAIN === */
 

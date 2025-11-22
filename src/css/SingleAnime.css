@@ -1,10 +1,9 @@
-/* === MAIN WRAPPER (SIDE-BY-SIDE LAYOUT) === */
 .anime-main-content {
     width: 100%;
     max-width: 1200px;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;        /* Prevent right side from dropping */
+    flex-wrap: nowrap;        
     align-items: flex-start;
     gap: 35px;
     margin: 0 auto;
@@ -19,13 +18,12 @@ body.dark .anime-main-content {
     color: white;
 }
 
-/* === LEFT SIDE: Sticky Title + Image + Button === */
 .anime-page-left {
     position: sticky;
     top: 70px;
-    flex-shrink: 0;           /* Don’t shrink */
+    flex-shrink: 0;           
     width: 35%;
-    max-width: 350px;         /* Prevent growing too wide */
+    max-width: 350px;         
     
     display: flex;
     flex-direction: column;
@@ -35,14 +33,12 @@ body.dark .anime-main-content {
     align-items: center;
 }
 
-/* Title */
 .anime-page-left h3 {
     font-size: 28px;
     font-weight: 700;
     margin: 0;
 }
 
-/* Poster */
 .anime-image {
     width: 260px;
     border-radius: 18px;
@@ -50,7 +46,6 @@ body.dark .anime-main-content {
     object-fit: cover;
 }
 
-/* Add Button */
 .anime-page-left button {
     background: linear-gradient(90deg, #e22d8efb, #e83f7ae3, #8a0347);
     border: none;
@@ -69,14 +64,12 @@ body.dark .anime-main-content {
     transform: translateY(-2px);
 }
 
-/* === RIGHT SIDE: Page Content === */
 .anime-page-right {
     width: 65%;
     padding: 10px;
-    min-width: 0;            /* CRITICAL: Prevents flex overflow */
+    min-width: 0;            
 }
 
-/* Summary Box */
 .summary {
     background: rgba(255,255,255,0.08);
     backdrop-filter: blur(6px);
@@ -103,7 +96,6 @@ body.dark .anime-main-content {
     text-align: left;
 }
 
-/* Log Button */
 .log-btn {
     margin-top: 10px;
     background: #444;
@@ -121,7 +113,6 @@ body.dark .anime-main-content {
     background: #666;
 }
 
-/* === RESPONSIVE MOBILE DESIGN === */
 @media (max-width: 900px) {
 
     .anime-main-content {

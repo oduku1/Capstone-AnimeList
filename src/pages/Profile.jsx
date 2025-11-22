@@ -92,7 +92,6 @@ export default function ProfilePage() {
                 : "No ratings yet"}
             </p>
           </div>
-          <button onClick={() => console.log(history)}>Log history</button>
         </div>
       </div>
     </div>
