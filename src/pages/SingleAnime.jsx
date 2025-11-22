@@ -136,10 +136,7 @@ export default function SingleAnime() {
           </div>
         )}
       </div>
-      <button className="log-btn" onClick={() => console.log(selectedAnime)}>
-        Log Anime
-      </button>
-
+   
       {openPopup && (
               <Popup
                 selectedAnime={selectedAnime}

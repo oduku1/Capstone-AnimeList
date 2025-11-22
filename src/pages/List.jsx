@@ -5,6 +5,7 @@ import axios from "axios";
 import UpdatePopup from "../components/UpdatePopup";
 import "../css/List.css";
 import DeletePopup from "../components/DeletePopup";
+import { searchAnime } from "../api_fetching/jikan";
 
 export default function Profile() {
   const { user, loggedIn, userAnime, setUserAnime} = useContext(AuthContext);
@@ -12,6 +13,7 @@ export default function Profile() {
   const [deleteSelect,setDeleteSelect ] = useState(null)
   const [filterGenre, setFilterGenre] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
+  const [query,setQuery] = useState("")
   const [sort, setSort] = useState("");
   const [openUpdate, setOpenUpdate] = useState(false)
   const [openDelete,setOpenDelete] = useState(false)
@@ -29,6 +31,7 @@ export default function Profile() {
     setDeleteSelect(anime)
     setOpenDelete(true)
   }
+
 
   const sortKeys = [
     "Date Added (Newest)",
@@ -131,14 +134,14 @@ export default function Profile() {
 
   const filteredAnime = userAnime
     ?.filter((anime) => (filterGenre ? anime.genres.includes(filterGenre) : true))
-    .filter((anime) => (filterStatus ? anime.status === filterStatus : true));
+    .filter((anime) => (filterStatus ? anime.status === filterStatus : true))
+    .filter((anime)=> anime.title.toLowerCase().includes(query.trim().toLowerCase()));
 
   const sortedAnime = filteredAnime.sort(sortFunctions[sort] || (() => 0));
 
-  // Fetch user anime only if userAnime is empty to avoid overwriting local changes
   useEffect(() => {
     if (!user?.username) return;
-    if (userAnime.length > 0) return; // Already have data, no need to fetch
+    if (userAnime.length > 0) return; 
 
     const fetchUserAnime = async () => {
       try {
@@ -185,8 +188,7 @@ export default function Profile() {
     <div className="main-content" style={{ color: "white", textAlign: "center" }}>
       <div className="query-container">
         <div className="search-container">
-          <input placeholder="Search For Anime" />
-          <button>Go</button>
+          <input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="Search For Anime" />
         </div>
 
         <div className="filter-container">
@@ -214,7 +216,8 @@ export default function Profile() {
               </option>
             ))}
           </select>
-          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <select value={sort} onChange={(e) => setSort(e.target.value)}             className="filter-select"
+          >
             <option value="" disabled>
               Filter
             </option>
@@ -229,6 +232,7 @@ export default function Profile() {
               setFilterGenre("");
               setFilterStatus("");
               setSort("");
+              setQuery("")
             }}
           >
             Reset

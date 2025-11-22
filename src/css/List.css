@@ -1,4 +1,3 @@
-/* === PROFILE PAGE LAYOUT === */
 .profile-page {
     color: white;
     padding: 20px;
@@ -8,7 +7,6 @@
   }
   
   
-  /* === ANIME LIST === */
   .list-card {
     background: #151515;
     border-radius: 12px;
@@ -35,7 +33,6 @@
     transform: scale(1.02);
   }
   
-  /* === IMAGE === */
   .list-card img {
     width: 120px;
     height: 170px;
@@ -43,7 +40,6 @@
     border-radius: 10px;
   }
   
-  /* === DETAILS === */
   .list-details {
     flex: 1;
     text-align: left;
@@ -116,17 +112,56 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 5px;
     margin-bottom: 30px;
     flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .query-container{
+    display: flex;
+    flex-wrap: wrap;
+  
+  }
+  
+  
+  .query-container button{
+    background-color: #ff4081;
+    margin: 5px;
+    border:none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-right: 2px;
+    color:white;
+    cursor: pointer;
+    transition: background-color 0.3s ease,transform 0.2s ease;
+
+  }
+
+  .query-container button:hover{
+    background-color: #ff5c93;
+    transform: translate(-2px, -2px);
+
+  }
+
+
+  .query-container button:active{
+    transform: scale(0.94) translateY(0px);
+  }
+
+  
+
+  .filter-select{
+    padding: 5px;
+    border: 1px solid black;
+    margin: 1px;
+    width: 12rem;
   }
   
   
   
-  
-  
-  
-  /* === RESPONSIVE === */
   @media (max-width: 600px) {
     .list-card {
       flex-direction: column;
@@ -153,10 +188,9 @@
     border-radius: 8px;
   }
   
-  /* Circular score badge */
   .mal-score {
     position: absolute;
-    bottom: 140px;         /* move it where you want */
+    bottom: 140px;        
     left: 77px;
     width: 30px;
     height: 30px;
@@ -178,4 +212,28 @@
 
   body.dark .empty-list{
     color: white;
+  }
+
+
+  .search-container input{
+    padding: 5px;
+    text-align: center; 
+    width: 12rem; 
+   
+  }
+
+  .search-container input:focus{
+    border: 2px solid #ff4081;
+    outline: none;
+
+  }
+
+  .filter-select{
+    text-align: center;
+  }
+
+  .filter-select:focus{
+    border: 2px solid #ff4081;
+    outline: none;
+
   }
