@@ -1,7 +1,9 @@
 import popularAnime from "/src/assets/Anime_pop.webp";
+import AutoSend from "../context/AutoSend";
 import "../css/Home.css";
 
 export default function Home() {
+  
   return (
     <div className="main-content">
       <div className="home-container">
@@ -12,7 +14,6 @@ export default function Home() {
         <div className="home-hero-wrapper">
           <img src={popularAnime} className="home-hero-image" />
         </div>
-
       </div>
     </div>
   );

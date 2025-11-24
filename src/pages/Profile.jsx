@@ -52,15 +52,17 @@ export default function ProfilePage() {
       <div className="profile-panels">
         <div className="panel-left">
           <div className="profile-box">
-            <h3>Your Top 5 Genres</h3>
+            
             <div className="genre-bars">
+            <h3>Your Top 5 Genres</h3>
               <GenreChart />
             </div>
           </div>
 
           <div className="profile-box">
+            <div clasName="genre-bars">
             <h3>Your Statuses</h3>
-            <div className="genre-bars">
+            <br></br>
               <StatusChart />
             </div>
           </div>

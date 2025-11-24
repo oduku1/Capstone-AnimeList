@@ -328,3 +328,28 @@ body.dark .login-hint {
   background-color: #ff4081;
   box-shadow: 0 0 10px rgba(255, 92, 147, 0.5);
 }
+
+
+.mal-score {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 700;
+  font-size: 0.9rem;
+
+  color: black;
+  background-color: #fff; 
+
+  box-shadow: 0 0 6px rgba(255, 64, 129, 0.4);
+  user-select: none;
+  z-index: 3;
+}

@@ -33,6 +33,15 @@ export default function NavBar({ onSearch }) {
           </NavLink>
         )}
 
+{loggedIn && user && (
+          <NavLink
+            to={`/recommendations/${user.username}`}
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Recommendations
+          </NavLink>
+        )}
+
         {loggedIn && user && (
           <NavLink
             to={`/profile/${user.username}`}

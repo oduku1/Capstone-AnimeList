@@ -18,55 +18,117 @@ body.dark .profile-title {
   color: white;
 }
 
-
 .profile-panels {
   display: flex;
   gap: 25px;
   margin-top: 20px;
   align-items: flex-start;
+  justify-content: center;
 }
 
 .panel-left {
-  flex: 2;
+  flex: 0.5;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
 }
 
-.panel-right {
-  flex: 1;
+.panel-left .profile-box {
+  width: 95%;
+  max-width: 600px;
+  min-width: 150px;
+  min-height: 500px;
+  padding: 20px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  position: sticky;
-  top: 250px;
-  flex-shrink: 0;
-  width: 35%;
-  max-width: 350px;
-  padding: 20px;
-  text-align: center;
-  align-items: center;
-
-}
-
-.profile-box {
-  background: var(--box-bg, #151515);
-  padding: 20px;
   border-radius: 12px;
+  background: var(--box-bg, #151515);
   box-shadow: 0 0 12px rgba(0,0,0,0.3);
   color: var(--text-color);
 }
 
-body.light .profile-box {
+body.light .panel-left .profile-box {
   background: #ffffff;
   color: #111;
 }
 
-body.dark .profile-box {
+body.dark .panel-left .profile-box {
   background: #151515;
   color: white;
 }
 
-.profile-box h3{
+.panel-left .profile-box h3 {
+  margin-bottom: 10px;
+  flex: 0 0 auto;
+}
+
+.heatmap,
+.genre-bars {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 300px;
+}
+
+.panel-left .profile-box .genre-bars,
+.panel-left .profile-box .heatmap {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 300px;
+}
+
+.panel-right {
+  flex: 0 0 200px;
+  width: 200px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: sticky;
+  top: 300px;
+  padding: 10px;
+  text-align: center;
+  align-items: center;
+}
+
+.panel-right .profile-box {
+  width: 200px;
+  max-width: 140px;
+  padding: 15px 10px;
+  text-align: center;
+  border-radius: 12px;
+  background: var(--box-bg, #151515);
+  color: var(--text-color);
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+
+body.light .panel-right .profile-box {
+  background: #ffffff;
+  color: #111;
+}
+
+body.dark .panel-right .profile-box {
+  background: #151515;
+  color: white;
+}
+
+.profile-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-box h3 {
   margin-bottom: 10px;
 }

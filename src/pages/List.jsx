@@ -183,14 +183,19 @@ export default function Profile() {
     }
     return `rgb(${red},${green},${blue})`;
   };
-
   return (
-    <div className="main-content" style={{ color: "white", textAlign: "center" }}>
-      <div className="query-container">
+    <div className="library-layout main-content">
+  
+      {/* Sidebar fixed on left */}
+      <div className="query-sidebar">
         <div className="search-container">
-          <input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="Search For Anime" />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search For Anime"
+          />
         </div>
-
+  
         <div className="filter-container">
           <select
             className="filter-select"
@@ -204,6 +209,7 @@ export default function Profile() {
               </option>
             ))}
           </select>
+  
           <select
             className="filter-select"
             onChange={(e) => setFilterStatus(e.target.value)}
@@ -216,7 +222,11 @@ export default function Profile() {
               </option>
             ))}
           </select>
-          <select value={sort} onChange={(e) => setSort(e.target.value)}             className="filter-select"
+  
+          <select
+            className="filter-select"
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
           >
             <option value="" disabled>
               Filter
@@ -227,73 +237,73 @@ export default function Profile() {
               </option>
             ))}
           </select>
+  
           <button
             onClick={() => {
               setFilterGenre("");
               setFilterStatus("");
               setSort("");
-              setQuery("")
+              setQuery("");
             }}
           >
             Reset
           </button>
         </div>
       </div>
-
-      {filteredAnime.length === 0 && (
-        <div className="main-content" style={{ color: "white", textAlign: "center" }}>
+  
+      {/* Main content area */}
+      <div className="content-area">
+        {filteredAnime.length === 0 && (
           <h4 className="empty-list">
             Broaden Your Anime Palette, Add Some More To Your List
           </h4>
-        </div>
-      )}
-
-      {sortedAnime.map((anime) => (
-        <div className="list-card" key={anime._id}>
-          <div className="img-container">
-            <img src={anime.image} alt={anime.title} />
-            <p className="mal-score" style={{ backgroundColor: getRatingColor(anime.mal_score), color: "black" }}>
-              {anime.mal_score}
-            </p>
+        )}
+  
+        {sortedAnime.map((anime) => (
+          <div className="list-card" key={anime._id}>
+            <div className="img-container">
+              <img src={anime.image} alt={anime.title} />
+            </div>
+  
+            <div className="list-details">
+              <h4>{anime.title}</h4>
+              <p>Genres: {anime.genres.join(", ")}</p>
+              <p>Episodes Watched: {anime.episodesWatched}</p>
+              <p style={{ color: getRatingColor(anime.rating) }}>
+                Your Rating: {anime.rating}
+              </p>
+              <p className="list-status-text">Status: {anime.status}</p>
+            </div>
+  
+            <button onClick={() => handleUpdate(anime)} className="list-update-btn">
+              Update
+            </button>
+            <button onClick={() => handleDelete(anime)} className="list-delete-btn">
+              Delete
+            </button>
           </div>
-
-          <div className="list-details">
-            <h4>{anime.title}</h4>
-            <p>Genres: {anime.genres.join(", ")}</p>
-            <p>Episodes Watched: {anime.episodesWatched}</p>
-            <p style={{ color: getRatingColor(anime.rating) }}>Your Rating: {anime.rating}</p>
-            <p className="list-status-text">Status: {anime.status}</p>
-          </div>
-
-          <button onClick={()=>handleUpdate(anime)} className="list-update-btn">Update</button>
-          <button onClick={()=>handleDelete(anime)} className="list-delete-btn">Delete</button>
-        </div>
-      ))}
-
-      {
-        openUpdate 
-        && 
-        <UpdatePopup selectedForUpdate = {updateSelect} 
-        onClose = {()=>{
+        ))}
+  
+        {openUpdate && (
+          <UpdatePopup
+            selectedForUpdate={updateSelect}
+            onClose={() => {
               setOpenUpdate(false);
-          setUpdateSelect(null)}
-
-        }/>
-      }
-      {
-        openDelete 
-        &&
-        <DeletePopup
-
-        selectedForDelete = {deleteSelect}
-
-        onClose = {()=>{
-          setOpenDelete(false);
-          setDeleteSelect(null)}}
-        />
-      
-      }
-    
+              setUpdateSelect(null);
+            }}
+          />
+        )}
+        {openDelete && (
+          <DeletePopup
+            selectedForDelete={deleteSelect}
+            onClose={() => {
+              setOpenDelete(false);
+              setDeleteSelect(null);
+            }}
+          />
+        )}
+      </div>
     </div>
   );
+  
 }

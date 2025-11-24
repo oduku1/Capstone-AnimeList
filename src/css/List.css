@@ -1,239 +1,257 @@
-.profile-page {
-    color: white;
-    padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  
-  .list-card {
-    background: #151515;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 20px auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
+.library-layout {
+  display: flex;
+  gap: 25px;
+  padding: 20px;
+}
+
+.query-sidebar {
+  position: fixed;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  width: 260px;
+  padding: 20px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 64, 129, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+  color: white;
+}
+
+.content-area {
+  flex: 1;
+  margin-left: 300px;
+}
+
+.query-sidebar input,
+.query-sidebar select {
+  width: 100%;
+  padding: 10px;
+  background: #111;
+  color: white;
+  border: 2px solid #555;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  margin: 2px 2px;
+}
+
+.query-sidebar input:focus,
+.query-sidebar select:focus {
+  border-color: #ff4081;
+  outline: none;
+}
+
+.query-sidebar button {
+  background: #ff4081;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  margin: 2px 2px;
+}
+
+.query-sidebar button:hover {
+  background: #ff5c93;
+  transform: translate(-1px, -1px);
+}
+
+.query-sidebar button:active {
+  transform: scale(0.94);
+}
+
+.list-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #1c1c1c;
+  padding: 12px;
+  margin: 12px auto;
+  border-radius: 10px;
+  width: 85%;
+  max-width: 800px;
+  min-height: 110px;
+  box-shadow: 0 0 12px rgba(97, 97, 97, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.list-card:hover {
+  transform: scale(1.02);
+}
+
+body.light .list-card {
+  background: #ffffff;
+  color: #0e0d0d;
+  box-shadow: 0 0 12px rgba(21, 21, 21, 0.3);
+}
+
+.list-card img {
+  width: 120px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.list-details {
+  flex: 1;
+  text-align: left;
+}
+
+.list-details h4 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.list-status-text {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.list-update-btn,
+.list-delete-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  height: 30px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.list-update-btn {
+  background-color: #6d6df5;
+  color: white;
+}
+
+.list-update-btn:hover {
+  background-color: #5959e6;
+  transform: translateY(-2px);
+}
+
+.list-update-btn:active {
+  transform: scale(0.97);
+}
+
+.list-delete-btn {
+  background-color: #f0552e;
+  color: white;
+}
+
+.list-delete-btn:hover {
+  background-color: #ed3c10;
+  transform: translateY(-2px);
+}
+
+.list-delete-btn:active {
+  transform: scale(0.97);
+}
+
+.img-container {
+  width: 75px;
+  height: 110px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body.light .empty-list {
+  color: black;
+}
+
+body.dark .empty-list {
+  color: white;
+}
+
+@media (max-width: 700px) {
+  .query-sidebar {
+    position: static;
+    transform: none;
     width: 100%;
-    max-width: 700px;
-    box-shadow: 0 0 12px rgba(97, 97, 97, 0.3);
-    transition: transform 0.15s ease-in-out;
-  }
-  
-  body.light .list-card{
-    background: #ffffff;
-    color:rgb(14, 13, 13);
-    box-shadow: 0 0 12px rgba(21, 21, 21, 0.3);
-  
-  }
-  
-  .list-card:hover {
-    transform: scale(1.02);
-  }
-  
-  .list-card img {
-    width: 120px;
-    height: 170px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  
-  .list-details {
-    flex: 1;
-    text-align: left;
-  }
-  
-  .list-details h4 {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-  }
-  
-  .list-status-text {
-    font-size: 1rem;
-    opacity: 0.8;
-  }
-  
-  .list-update-btn{
-    background-color: #6d6df5;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 6px 14px;
-    font-size: 14px;
-    cursor: pointer;
-      height: 30px;
-      transition: all 0.2s ease;
-  
-  }
-  
-  .list-update-btn:hover {
-    background-color: #5959e6;
-    transform: translateY(-2px);
-  }
-  
-  .list-update-btn:active {
-    transform: scale(0.97);
-  }
-  
-  .list-update-btn {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  }
-  
-  
-  .list-delete-btn{
-    background-color: #f0552e;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 6px 14px;
-    font-size: 14px;
-    cursor: pointer;
-      height: 30px;
-      transition: all 0.2s ease;
-  
-  }
-  
-  .list-delete-btn:hover {
-    background-color: #ed3c10;
-    transform: translateY(-2px);
-  }
-  
-  .list-delete-btn:active {
-    transform: scale(0.97);
-  }
-  
-  .list-delete-btn {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  }
-  
-  .query-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    max-height: none;
+    overflow: visible;
+    margin-bottom: 20px;
   }
 
-  .query-container{
-    display: flex;
-    flex-wrap: wrap;
-  
+  .content-area {
+    margin-left: 0;
   }
-  
-  
-  .query-container button{
-    background-color: #ff4081;
-    margin: 5px;
-    border:none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    margin-right: 2px;
-    color:white;
-    cursor: pointer;
-    transition: background-color 0.3s ease,transform 0.2s ease;
-
-  }
-
-  .query-container button:hover{
-    background-color: #ff5c93;
-    transform: translate(-2px, -2px);
-
-  }
-
-
-  .query-container button:active{
-    transform: scale(0.94) translateY(0px);
-  }
-
-  
-
-  .filter-select{
-    padding: 5px;
-    border: 1px solid black;
-    margin: 1px;
-    width: 12rem;
-  }
-  
-  
-  
-  @media (max-width: 600px) {
-    .list-card {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .list-card img {
-      width: 150px;
-      height: 200px;
-    }
-  
-    .list-details {
-      text-align: center;
-    }
-  }
-  
-  .img-container {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .img-container img {
-    width: 100%;
-    border-radius: 8px;
-  }
-  
-  .mal-score {
-    position: absolute;
-    bottom: 140px;        
-    left: 77px;
-    width: 30px;
-    height: 30px;
-
-    border-radius: 50%;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 1rem;
-
- 
-  }
-
-  body.light .empty-list{
-    color:black
-  }
-
-  body.dark .empty-list{
-    color: white;
-  }
-
-
-  .search-container input{
-    padding: 5px;
-    text-align: center; 
-    width: 12rem; 
-   
-  }
-
-  .search-container input:focus{
-    border: 2px solid #ff4081;
-    outline: none;
-
-  }
-
-  .filter-select{
-    text-align: center;
-  }
-
-  .filter-select:focus{
-    border: 2px solid #ff4081;
-    outline: none;
-
-  }
+}
+body.light {
+  background: #f7f7f7;
+  color: #111;
+}
+body.light .query-sidebar {
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 64, 129, 0.25);
+}
+body.light .query-sidebar input,
+body.light .query-sidebar select {
+  background: #f2f2f2;
+  color: #000;
+  border: 1px solid #bbb;
+}
+body.light .query-sidebar input:focus,
+body.light .query-sidebar select:focus {
+  border-color: #ff4081;
+}
+body.light .query-sidebar button {
+  background: #ff4081;
+  color: white;
+}
+body.light .list-card {
+  background: #ffffff;
+  color: #000;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+}
+body.light .list-update-btn {
+  background-color: #6d6df5;
+  color: white;
+}
+body.light .list-update-btn:hover {
+  background-color: #5959e6;
+}
+body.light .list-delete-btn {
+  background-color: #f0552e;
+  color: white;
+}
+body.light .list-delete-btn:hover {
+  background-color: #ed3c10;
+}
+body.light .img-container {
+  border: 1px solid #ccc;
+}
+body.light .filter-select {
+  background: #fff;
+  color: #000;
+  border: 1px solid #bbb;
+}
+body.light .search-container input {
+  background: #fff;
+  color: #000;
+  border: 1px solid #bbb;
+}
+body.light .search-container input:focus {
+  border: 2px solid #ff4081;
+}
+body.light .empty-list {
+  color: #000;
+}

@@ -13,6 +13,7 @@ import SingleAnime from "./pages/SingleAnime.jsx";
 import { searchAnime } from "./api_fetching/jikan.js";
 import SearchPage from "./pages/Search.jsx";
 import ProfilePage from "./pages/Profile.jsx";
+import Recommendations from "./pages/Recommendations.jsx";
 
 function App() {
   const {  setAnime,  setLoading } = useContext(AuthContext);
@@ -55,6 +56,10 @@ function App() {
   {/* Profile */}
   <Route path = "/profile/:username" element= {<ProfilePage/>}/>
   <Route path="/list/:username" element={<List />} />
+
+  {/* Recommendations */}
+  <Route path="/recommendations/:username" element={<Recommendations />} />
+
 </Routes>
     </>
   );  

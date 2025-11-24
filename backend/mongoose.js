@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+
 dotenv.config();
 
 import jwt from "jsonwebtoken"
@@ -368,7 +369,18 @@ app.get("/api/profile/:username/history", async (req, res) => {
 });
 
 
-// ✅ Start server
+app.post("/recommend", (req, res) => {
+  const { user, anime } = req.body;
+
+  console.log("AutoSend received user:", user);
+  console.log("AutoSend received anime:", anime);
+
+  res.json({ message: "Data received successfully" });
+});
+
+
+
+
 app.listen(3000, () => {
   console.log("🚀 Server running on port 3000");
 });
