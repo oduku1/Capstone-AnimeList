@@ -6,6 +6,7 @@ import UpdatePopup from "../components/UpdatePopup";
 import "../css/List.css";
 import DeletePopup from "../components/DeletePopup";
 import { searchAnime } from "../api_fetching/jikan";
+import { div } from "motion/react-client";
 
 export default function Profile() {
   const { user, loggedIn, userAnime, setUserAnime} = useContext(AuthContext);
@@ -186,7 +187,6 @@ export default function Profile() {
   return (
     <div className="library-layout main-content">
   
-      {/* Sidebar fixed on left */}
       <div className="query-sidebar">
         <div className="search-container">
           <input
@@ -251,12 +251,15 @@ export default function Profile() {
         </div>
       </div>
   
-      {/* Main content area */}
-      <div className="content-area">
+\      <div className="content-area">
         {filteredAnime.length === 0 && (
-          <h4 className="empty-list">
+          <div className="list-card">
+            <h4 className="empty-list">
             Broaden Your Anime Palette, Add Some More To Your List
           </h4>
+
+          </div>
+         
         )}
   
         {sortedAnime.map((anime) => (
