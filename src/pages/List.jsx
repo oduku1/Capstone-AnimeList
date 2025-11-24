@@ -187,12 +187,14 @@ export default function Profile() {
   return (
     <div className="library-layout main-content">
   
+  
       <div className="query-sidebar">
         <div className="search-container">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search For Anime"
+            style={{textAlign:"center%"}}
           />
         </div>
   
@@ -251,7 +253,7 @@ export default function Profile() {
         </div>
       </div>
   
-\      <div className="content-area">
+      <div className="content-area">
         {filteredAnime.length === 0 && (
           <div className="list-card">
             <h4 className="empty-list">

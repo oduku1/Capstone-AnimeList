@@ -44,7 +44,7 @@ export default function GenreChart() {
     datasets: [
       {
         label: "Avg Score by Genre",
-        data: genreAverages.map((g) => g.value), // IMPORTANT FIX
+        data: genreAverages.map((g) => g.value),
         backgroundColor: "rgba(232, 63, 122, 0.3)",
         borderColor: "#e83f7a",
         borderWidth: 2,

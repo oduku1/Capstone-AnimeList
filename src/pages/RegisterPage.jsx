@@ -70,10 +70,10 @@ export default function RegisterPage() {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button type="submit">Sign Up</button>
+      <button  className="login-btn" type="submit">Sign Up</button>
 
       <p>
-        Already Have an Account? <Link to="/login">Login Here</Link>
+        Already Have an Account? <Link to="/login"  style={{color:"#ff4081"}}>Login Here</Link>
       </p>
     </form>
   );

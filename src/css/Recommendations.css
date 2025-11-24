@@ -1,0 +1,64 @@
+.recommendations-page {
+    text-align: center;
+    padding: 40px;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+  
+  .rec-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .rec-box {
+    background: #1a1a1a;
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 450px;
+    margin: 0 auto;
+    border: 1px solid rgba(226, 45, 142, 0.3);
+    box-shadow: 0 0 12px rgba(226, 45, 142, 0.2);
+  }
+
+  body.light .rec-box{
+    background-color: #fff;
+
+ }
+
+ body.light .rec-box h1{
+    color: black;
+
+ }
+
+
+ body.light  .rec-main-text{
+    color: black;    
+ }
+
+ body.light  .rec-sub-text{
+    color: black;    
+ }
+
+
+ body.light  .rec-title{
+    color: black;    
+ }
+ 
+  .rec-main-text {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .rec-sub-text {
+    margin-top: 10px;
+    color: #ccc;
+    line-height: 1.4;
+  }
+  
+  .rec-highlight {
+    margin-top: 12px;
+    color: #e6469b;
+    font-weight: 500;
+  }
+  

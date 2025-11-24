@@ -254,6 +254,10 @@
   justify-content: space-between; 
 }
 
+input{
+  width: 110px;
+}
+
 
 .add-anime-box input,
 .add-anime-box select {

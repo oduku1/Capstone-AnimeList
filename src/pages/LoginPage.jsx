@@ -80,10 +80,9 @@ export default function LoginPage() {
         onChange={(e) => setPassword(e.target.value.trim())}
       />
 
-      <button type="submit">Login</button>
+      <button className="login-btn" type="submit">Login</button>
 
-      <p>Don’t have an account? <Link to="/register">Register Here</Link></p>
-      <p>Forgot Password?</p>
+      <p>Don’t have an account? <Link to="/register" style={{color:"#ff4081"}}>Register Here</Link></p>
     </form>
   );
 }

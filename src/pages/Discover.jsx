@@ -18,7 +18,7 @@ export default function Discover() {
   } = useContext(AuthContext);
 
   const getRatingColor = (rating) => {
-    if (rating === null) return "none";
+    if (rating === null) return "transparent";
 
     const colorRatio = Math.min(Math.max(rating / 10, 0), 1); // (0 to 1)
     let red, green, blue;

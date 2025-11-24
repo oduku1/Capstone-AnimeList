@@ -18,6 +18,8 @@ export default function ProfilePage() {
     );
   }
 
+  const noPlannedAnime = userAnime.filter(anime => anime.status !== "Plan to Watch")
+
   function getDuration(durationStr) {
     if (!durationStr) return 0;
     let hours = 0;
@@ -82,15 +84,15 @@ export default function ProfilePage() {
           </div>
 
           <div className="profile-box">
-            <h3>Days Watched</h3>
+            <h3>Days Spent Watching</h3>
             <p>{daysWatched} Days</p>
           </div>
 
           <div className="profile-box">
-            <h3>Average Score</h3>
+            <h3>Your Average Rating</h3>
             <p>
               {userAnime.length > 0
-                ? (userAnime.map((anime) => anime.rating || 0).reduce((a, b) => a + b, 0) / userAnime.length).toFixed(2)
+                ? (noPlannedAnime.map((anime) => anime.rating || 0).reduce((a, b) => a + b, 0) / noPlannedAnime.length).toFixed(2)
                 : "No ratings yet"}
             </p>
           </div>
