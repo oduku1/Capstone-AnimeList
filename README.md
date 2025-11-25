@@ -62,7 +62,7 @@ anime-list/
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### **Frontend**
 
@@ -87,7 +87,7 @@ anime-list/
 
 ---
 
-## 🔧 Installation & Setup
+##  Installation & Setup
 
 ### **1. Clone the repository**
 
