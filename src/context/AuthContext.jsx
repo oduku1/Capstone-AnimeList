@@ -76,6 +76,7 @@ export function AuthProvider({ children }) {
   function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("userAnime");
+    setUserAnime([]);
     setUser(null);
     setLoggedIn(false);
   }

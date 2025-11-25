@@ -152,6 +152,7 @@ app.delete("/api/users/:username/anime",async(req,res)=>{
         error: "Anime not found in user's list",
       });
     }
+    console.log("DELETE MAL ID:", req.body.mal_id);
 
     await HistoryModel.create({
       animeImg: deletedAnime.image,

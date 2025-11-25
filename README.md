@@ -28,7 +28,7 @@ A full‑stack anime tracking and recommendation web app built using **React**, 
 
 * Flask API endpoint `/recommend`
 * Pulls user anime list from main API
-* Uses ML (XGBoost or collaborative filtering) to recommend new anime
+* Uses ML (collaborative filtering) to recommend new anime to user
 * Returns ranked list of recommendations to React
 
 ---
@@ -82,7 +82,7 @@ anime-list/
 
 * Python 3
 * Flask
-* XGBoost / Scikit-Learn
+* Scikit-Learn
 * Pandas / NumPy
 
 ---
