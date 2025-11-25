@@ -1,176 +1,87 @@
 # Anime List Project
 
-A full‑stack anime tracking and recommendation web app built using **React**, **Node.js / Express**, and a **Python recommendation engine**. The project integrates with the **Jikan API / AniList API** to fetch anime data, allows users to maintain personalized anime lists, and provides ML‑based recommendations.
+A full-stack web application for tracking anime, managing personal
+watchlists, and generating recommendations. Built with React,
+Node.js/Express, and a Python machine learning engine.
 
----
+## Features
 
-##  Features
+### Frontend (React)
 
-### **Frontend (React)**
+-   Modern UI for searching and browsing anime
+-   User login and JWT authentication
+-   Add, edit, and delete anime from a personal list
+-   Profile page with basic stats
+-   Light and dark mode
 
-* Modern SPA built with React + React Router
-* User authentication with JWT
-* Light/Dark theme toggle with your custom pink aesthetic
-* Search bar with dropdown suggestions
-* Anime list management (add, update, delete entries)
-* Profile page showing stats, favorites, and user history
-* Popup component for actions and confirmations
+### Backend (Node.js / Express)
 
-### **Backend (Node.js / Express)**
+-   User authentication and token validation
+-   Anime list CRUD routes
+-   MongoDB with Mongoose
+-   Organized REST API structure
 
-* Token authentication middleware
-* User routes (register, login, profile)
-* Anime list CRUD routes
-* REST API structure with clean controllers/services
-* Secure password hashing
+### Recommendation Engine (Python)
 
-### **Recommendation Engine (Python)**
+-   Flask server with a `/recommend` endpoint
+-   Processes the user's anime list
+-   Uses collaborative filtering to generate recommendations
 
-* Flask API endpoint `/recommend`
-* Pulls user anime list from main API
-* Uses ML (collaborative filtering) to recommend new anime to user
-* Returns ranked list of recommendations to React
+## Project Structure
 
----
+    anime-list/
+    ├── client/        # React frontend
+    ├── server/        # Node.js backend
+    └── recommender/   # Python ML engine
 
-##  Project Structure
+## Setup
 
-```
-anime-list/
-├── client/           # React frontend
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── context/
-│   │   ├── api_fetching/
-│   │   └── App.jsx
-│   └── package.json
-│
-├── server/           # Node backend
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   ├── middleware/
-│   └── index.js
-│
-├── recommender/      # Python ML engine
-│   ├── model.ipynb
-│   └── app.py (Flask)
-│
-└── README.md
-```
+### 1. Clone the repository
 
----
+    git clone https://github.com/yourusername/anime-list.git
+    cd anime-list
 
-##  Tech Stack
+### 2. Install frontend
 
-### **Frontend**
+    cd client
+    npm install
+    npm run dev
 
-* React + Vite
-* React Router
-* Context API for global auth + anime state
-* TailwindCSS (if added later)
+### 3. Install backend
 
-### **Backend**
+    cd server
+    npm install
+    npm run dev
 
-* Node.js
-* Express
-* MongoDB + Mongoose
-* JWT Authentication
+### 4. Install Python recommender
 
-### **Recommendation Engine**
+    cd recommender
+    pip install -r requirements.txt
+    python app.py
 
-* Python 3
-* Flask
-* Scikit-Learn
-* Pandas / NumPy
+## Environment Variables
 
----
+Create a `server/.env` file:
 
-##  Installation & Setup
+    MONGO_URI=your_mongo_url
+    JWT_SECRET=your_secret_key
 
-### **1. Clone the repository**
+## Recommendation Flow
 
-```
-git clone https://github.com/yourusername/anime-list.git
-cd anime-list
-```
+1.  User logs in.
+2.  Frontend fetches the user's anime list.
+3.  React sends a POST request to `/recommend` on the Python API.
+4.  The model analyzes the user's data.
+5.  A ranked list of recommended anime is returned.
+6.  The frontend displays the results.
 
-### **2. Install frontend dependencies**
+## Future Improvements
 
-```
-cd client
-npm install
-npm run dev   # start local dev server
-```
+-   Better recommendation accuracy
+-   Account settings page
+-   Seasonal charts and statistics
+-   Optional OAuth integration with AniList
 
-### **3. Install backend dependencies**
+## Author
 
-```
-cd server
-npm install
-npm run dev   # start Express API
-```
-
-### **4. Install Python recommender dependencies**
-
-```
-cd recommender
-pip install -r requirements.txt
-python app.py   # start Flask recommender API
-```
-
----
-
-## 🔌 Environment Variables
-
-Create the following files:
-
-### `server/.env`
-
-```
-MONGO_URI=your_mongo_url
-JWT_SECRET=your_secret_here
-```
-
----
-
-
-### **Recommended platforms:**
-
-Recommendatoin
-
----
-
-##  Recommendation Workflow
-
-1. User logs in
-2. Frontend fetches user anime list from Node server
-3. When the user clicks **“Recommend Anime”**, React calls:
-
-   * `POST /recommend` → Python Flask API
-4. ML model analyzes genres, ratings, watch history
-5. Returns top recommendations
-6. React displays them in a styled results page
-
----
-
-##  Future Improvements
-
-* Account settings page
-* Improved recommendation accuracy
-* Add Anime season charts and statistics
-* Migrate from Context API → Redux Toolkit
-* Implement OAuth with AniList
-
----
-
-##  License
-
-MIT License — free to use, modify, and redistribute.
-
----
-
-## 👤 Author
-
-**Omar Dukureh**
+Omar Dukureh
