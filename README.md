@@ -165,12 +165,6 @@ Recommendatoin
 
 ---
 
-## Aesthetic
-
-Your custom pink‑themed UI is intentionally kept consistent across light/dark modes. It's your signature look.
-
----
-
 ##  License
 
 MIT License — free to use, modify, and redistribute.
