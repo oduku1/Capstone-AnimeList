@@ -1,7 +1,30 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
-
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+/*
+:root {
+  --accent: #3a7bff;
+  --accent-light: #a7c4ff;
+  --accent-dark: #1b263b;
+
+  --accent-darkmode: #ff4081;
+  --accent-darkmode-light: #ff85b2;
+  --accent-darkmode-dark: #7a234a;
+
+  --bg-light: #e6e6e6;
+  --text-light: black;
+  --nav-bg-light: #f0f2f5;
+  --border-light: #ccc;
+
+  --bg-dark: #1a1a1a;
+  --text-dark: #f5f5f5;
+  --nav-bg-dark: #252525;
+  --border-dark: #444;
+}
+
+This will be implemented in the future.
+*/
 
 
 * {
@@ -10,7 +33,6 @@
   box-sizing: border-box;
   font-family: "Rajdhani",Arial, Helvetica, sans-serif;
 }
-
 
 
 body {
