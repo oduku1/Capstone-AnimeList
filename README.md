@@ -1,16 +1,182 @@
-# React + Vite
+# Anime List Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full‑stack anime tracking and recommendation web app built using **React**, **Node.js / Express**, and a **Python recommendation engine**. The project integrates with the **Jikan API / AniList API** to fetch anime data, allows users to maintain personalized anime lists, and provides ML‑based recommendations.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##  Features
 
-## React Compiler
+### **Frontend (React)**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Modern SPA built with React + React Router
+* User authentication with JWT
+* Light/Dark theme toggle with your custom pink aesthetic
+* Search bar with dropdown suggestions
+* Anime list management (add, update, delete entries)
+* Profile page showing stats, favorites, and user history
+* Popup component for actions and confirmations
 
-## Expanding the ESLint configuration
+### **Backend (Node.js / Express)**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* Token authentication middleware
+* User routes (register, login, profile)
+* Anime list CRUD routes
+* REST API structure with clean controllers/services
+* Secure password hashing
+
+### **Recommendation Engine (Python)**
+
+* Flask API endpoint `/recommend`
+* Pulls user anime list from main API
+* Uses ML (XGBoost or collaborative filtering) to recommend new anime
+* Returns ranked list of recommendations to React
+
+---
+
+##  Project Structure
+
+```
+anime-list/
+├── client/           # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   ├── api_fetching/
+│   │   └── App.jsx
+│   └── package.json
+│
+├── server/           # Node backend
+│   ├── routes/
+│   ├── controllers/
+│   ├── models/
+│   ├── middleware/
+│   └── index.js
+│
+├── recommender/      # Python ML engine
+│   ├── model.ipynb
+│   └── app.py (Flask)
+│
+└── README.md
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### **Frontend**
+
+* React + Vite
+* React Router
+* Context API for global auth + anime state
+* TailwindCSS (if added later)
+
+### **Backend**
+
+* Node.js
+* Express
+* MongoDB + Mongoose
+* JWT Authentication
+
+### **Recommendation Engine**
+
+* Python 3
+* Flask
+* XGBoost / Scikit-Learn
+* Pandas / NumPy
+
+---
+
+## 🔧 Installation & Setup
+
+### **1. Clone the repository**
+
+```
+git clone https://github.com/yourusername/anime-list.git
+cd anime-list
+```
+
+### **2. Install frontend dependencies**
+
+```
+cd client
+npm install
+npm run dev   # start local dev server
+```
+
+### **3. Install backend dependencies**
+
+```
+cd server
+npm install
+npm run dev   # start Express API
+```
+
+### **4. Install Python recommender dependencies**
+
+```
+cd recommender
+pip install -r requirements.txt
+python app.py   # start Flask recommender API
+```
+
+---
+
+## 🔌 Environment Variables
+
+Create the following files:
+
+### `server/.env`
+
+```
+MONGO_URI=your_mongo_url
+JWT_SECRET=your_secret_here
+```
+
+---
+
+
+### **Recommended platforms:**
+
+Recommendatoin
+
+---
+
+##  Recommendation Workflow
+
+1. User logs in
+2. Frontend fetches user anime list from Node server
+3. When the user clicks **“Recommend Anime”**, React calls:
+
+   * `POST /recommend` → Python Flask API
+4. ML model analyzes genres, ratings, watch history
+5. Returns top recommendations
+6. React displays them in a styled results page
+
+---
+
+##  Future Improvements
+
+* Account settings page
+* Improved recommendation accuracy
+* Add Anime season charts and statistics
+* Migrate from Context API → Redux Toolkit
+* Implement OAuth with AniList
+
+---
+
+## Aesthetic
+
+Your custom pink‑themed UI is intentionally kept consistent across light/dark modes. It's your signature look.
+
+---
+
+##  License
+
+MIT License — free to use, modify, and redistribute.
+
+---
+
+## 👤 Author
+
+**Omar Dukureh**
